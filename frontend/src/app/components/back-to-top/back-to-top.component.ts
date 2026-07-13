@@ -26,7 +26,7 @@ import { MatIconModule } from '@angular/material/icon';
       border: none;
       background: linear-gradient(135deg, $secondary, $accent);
       color: $text;
-      cursor: pointer;
+      cursor: none;
       display: flex;
       align-items: center;
       justify-content: center;
