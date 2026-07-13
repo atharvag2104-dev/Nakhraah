@@ -1,0 +1,102 @@
+@use './styles/variables' as *;
+@use './styles/mixins' as *;
+@use './styles/global';
+@use './styles/dark-theme';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: $font-primary;
+  font-size: 16px;
+  line-height: 1.65;
+  color: $text;
+  background-color: $background;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color $transition, color $transition;
+}
+
+.main-content {
+  background-color: $background;
+}
+
+::selection {
+  background: rgba($accent, 0.25);
+  color: $text;
+}
+
+body.dark-mode {
+  background-color: $dark-bg;
+  color: $dark-text;
+
+  .main-content {
+    background-color: $dark-bg;
+  }
+
+  .navbar.scrolled {
+    background: rgba(15, 17, 23, 0.96) !important;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-primary;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+}
+
+.reveal {
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+
+  &.revealed {
+    opacity: 1;
+    transform: none !important;
+  }
+}
+
+.reveal-fade-up {
+  transform: translateY(40px);
+}
+
+.reveal-fade-down {
+  transform: translateY(-40px);
+}
+
+.reveal-fade-left {
+  transform: translateX(-40px);
+}
+
+.reveal-fade-right {
+  transform: translateX(40px);
+}
+
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+:root {
+  --mdc-theme-primary: #{$accent};
+  --mdc-theme-secondary: #{$secondary};
+}
+
+.mat-mdc-snack-bar-container {
+  --mdc-snackbar-container-color: #{$text};
+}

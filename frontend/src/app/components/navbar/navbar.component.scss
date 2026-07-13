@@ -1,0 +1,250 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: $navbar-height;
+  transition: all $transition;
+  background: rgba(249, 255, 245, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid transparent;
+
+  &.scrolled {
+    background: rgba(249, 255, 245, 0.94);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom-color: rgba(226, 249, 209, 0.8);
+    box-shadow: $shadow-medium;
+  }
+
+  .container {
+    @include container;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1.5rem;
+    height: 100%;
+  }
+
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    flex-shrink: 0;
+    justify-self: start;
+  }
+
+  .logo-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: $primary;
+    border: 2px solid rgba(250, 212, 222, 0.8);
+    box-shadow: 0 1px 6px rgba(51, 51, 51, 0.06);
+
+    img {
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+  }
+
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    line-height: 1.15;
+  }
+
+  .brand-name {
+    font-family: $font-primary;
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+
+  .brand-hindi {
+    color: $text;
+  }
+
+  .brand-latin {
+    color: $accent;
+  }
+
+  .brand-tagline {
+    font-family: $font-primary;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: $text-light;
+    white-space: nowrap;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.75rem;
+    justify-content: center;
+
+    @media (max-width: 900px) {
+      display: none;
+    }
+
+    a {
+      text-decoration: none;
+      color: $text;
+      font-weight: 500;
+      font-size: 0.92rem;
+      position: relative;
+      transition: color $transition;
+      white-space: nowrap;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: $accent;
+        transition: width $transition;
+      }
+
+      &:hover, &.active {
+        color: $accent;
+        &::after { width: 100%; }
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-self: end;
+    flex-shrink: 0;
+  }
+
+  .theme-toggle, .menu-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: $text;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: background $transition;
+
+    &:hover { background: $primary; }
+  }
+
+  .menu-toggle {
+    display: none;
+    @media (max-width: 900px) { display: flex; }
+  }
+
+  .book-btn {
+    @include btn-primary;
+    padding: 0.6rem 1.35rem;
+    font-size: 0.82rem;
+
+    @media (max-width: 900px) { display: none; }
+  }
+
+  .mobile-menu {
+    display: none;
+    @media (max-width: 900px) {
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+      gap: 1rem;
+      @include glass-card;
+      margin: 0 1rem 1rem;
+      border-radius: $radius-md;
+    }
+
+    a {
+      text-decoration: none;
+      color: $text;
+      font-weight: 500;
+      padding: 0.5rem 0;
+      &.active { color: $accent; }
+    }
+
+    .mobile-book {
+      @include btn-primary;
+      text-align: center;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .brand-tagline {
+      display: none;
+    }
+
+    .brand-name {
+      font-size: 1.1rem;
+    }
+
+    .logo-icon {
+      width: 42px;
+      height: 42px;
+    }
+  }
+}
+
+:host-context(.dark-mode) .navbar {
+  background: rgba(15, 17, 23, 0.82);
+  border-bottom-color: transparent;
+
+  &.scrolled {
+    background: rgba(15, 17, 23, 0.96);
+    border-bottom-color: $dark-border-subtle;
+    box-shadow: $dark-shadow;
+  }
+
+  .brand-hindi { color: $dark-text; }
+  .brand-tagline { color: $dark-text-muted; }
+
+  .nav-links a {
+    color: $dark-text-muted;
+    &:hover, &.active { color: $accent; }
+  }
+
+  .theme-toggle,
+  .menu-toggle {
+    color: $dark-text;
+    &:hover { background: $dark-surface-2; }
+  }
+
+  .mobile-menu {
+    background: $dark-glass-bg;
+    border-color: $dark-glass-border;
+    box-shadow: $dark-shadow;
+
+    a {
+      color: $dark-text-muted;
+      &.active { color: $accent; }
+    }
+  }
+
+  .logo-icon {
+    border-color: rgba(240, 138, 155, 0.35);
+    background: $dark-surface-2;
+  }
+}

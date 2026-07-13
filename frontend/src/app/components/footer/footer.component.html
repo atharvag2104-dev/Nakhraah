@@ -1,0 +1,51 @@
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="brand-col">
+        <div class="brand-header">
+          <img src="assets/images/logo.png" alt="नखRaah" class="footer-logo" />
+          <div class="brand-text">
+            <h3 class="brand-name">
+              <span class="brand-hindi">नख</span><span class="brand-latin">Raah</span>
+            </h3>
+            <p class="brand-sub">Nail Studio</p>
+          </div>
+        </div>
+        <p class="tagline">Where precision meets passion</p>
+        <div class="social">
+          <a [href]="env.instagramUrl" target="_blank" rel="noopener" aria-label="Instagram">
+            <mat-icon>photo_camera</mat-icon>
+          </a>
+          <a [href]="env.facebookUrl" target="_blank" rel="noopener" aria-label="Facebook">
+            <mat-icon>facebook</mat-icon>
+          </a>
+          <a [href]="'https://wa.me/' + env.whatsappNumber" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <mat-icon>chat</mat-icon>
+          </a>
+        </div>
+      </div>
+
+      <div class="links-col">
+        <h4>Quick Links</h4>
+        <ul>
+          @for (link of quickLinks; track link.path) {
+            <li><a [routerLink]="link.path">{{ link.label }}</a></li>
+          }
+        </ul>
+      </div>
+
+      <div class="contact-col">
+        <h4>Visit Us</h4>
+        <p><mat-icon>location_on</mat-icon> {{ env.studioAddress }}</p>
+        <p><mat-icon>phone</mat-icon> {{ env.studioPhone }}</p>
+        <p><mat-icon>schedule</mat-icon> Mon–Fri: {{ env.businessHours.weekdays }}</p>
+        <p><mat-icon>schedule</mat-icon> Sat: {{ env.businessHours.saturday }}</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; {{ year }} नखRaah Nail Studio. All rights reserved.</p>
+      <p class="made-with">Crafted with love & precision</p>
+    </div>
+  </div>
+</footer>

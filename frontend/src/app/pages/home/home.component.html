@@ -1,0 +1,282 @@
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content" appScrollReveal="fade-up">
+    <span class="hero-badge">Premium Nail Art Studio</span>
+    <h1>Where Precision<br><em>Meets Passion</em></h1>
+    <p class="hero-subtitle">Experience luxury nail artistry crafted with love by the cousin duo at नखRaah</p>
+    <div class="hero-actions">
+      <a routerLink="/contact" class="btn-primary">Book Appointment</a>
+      <a routerLink="/services" class="btn-outline">View Services</a>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-item">
+        <strong>500+</strong>
+        <span>Happy Clients</span>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-item">
+        <strong>Premium</strong>
+        <span>Salon Products</span>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-item">
+        <strong>Pune</strong>
+        <span>Studio Location</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <mat-icon>keyboard_arrow_down</mat-icon>
+  </div>
+</section>
+
+<!-- Welcome -->
+<section class="section welcome">
+  <div class="container">
+    <div class="welcome-grid">
+      <div class="welcome-image" appScrollReveal="fade-right">
+        <img src="assets/images/logo.png" alt="नखRaah Studio" loading="lazy" />
+      </div>
+      <div appScrollReveal="fade-left" [delay]="200">
+        <app-section-title
+          subtitle="Welcome"
+          title="Your Nails, Our Canvas"
+          [center]="false"
+          description="Step into a world of elegance where every detail matters. At नखRaah, we transform nails into wearable art — blending precision, passion, and premium products for an unforgettable salon experience."
+        />
+        <a routerLink="/about" class="btn-outline">Discover Our Story</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Our Story -->
+<section class="section section-band story">
+  <div class="container">
+    <app-section-title
+      subtitle="Our Story"
+      title="Two Cousins, One Vision"
+      description="Born from a shared love of beauty and creativity, नखRaah is the dream of two cousins who believe every woman deserves to feel extraordinary."
+    />
+    <div class="story-cards">
+      <div class="story-card floating-card" appScrollReveal="fade-up">
+        <mat-icon>auto_awesome</mat-icon>
+        <h3>The Beginning</h3>
+        <p>What started as a passion project between two cousins has blossomed into Pune's most sought-after nail art destination.</p>
+      </div>
+      <div class="story-card floating-card" appScrollReveal="fade-up" [delay]="150">
+        <mat-icon>diamond</mat-icon>
+        <h3>Our Craft</h3>
+        <p>Every design is hand-crafted with meticulous attention to detail, using only premium, salon-grade products.</p>
+      </div>
+      <div class="story-card floating-card" appScrollReveal="fade-up" [delay]="300">
+        <mat-icon>favorite</mat-icon>
+        <h3>Our Promise</h3>
+        <p>We treat every client like family — delivering warmth, hygiene, and artistry that keeps you coming back.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Services -->
+<section class="section services-section">
+  <div class="container">
+    <app-section-title
+      subtitle="Services"
+      title="Featured Treatments"
+      description="Indulge in our most loved services, designed to pamper and perfect."
+    />
+    @if (loading()) {
+      <app-loading-spinner />
+    } @else {
+      <div class="preview-slider services-slider" appScrollReveal="fade-up">
+        <button
+          class="slide-nav prev"
+          (click)="prevServicesPage()"
+          [disabled]="servicesPage() === 0"
+          aria-label="Previous services slides"
+        >
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+
+        <div class="slider-viewport">
+          <div
+            class="slider-track"
+            [style.transform]="'translateX(-' + servicesPage() * 100 + '%)'"
+          >
+            @for (page of servicePages(); track $index) {
+              <div class="slide-page services-slide-page">
+                @for (service of page; track service.id) {
+                  <app-service-card [service]="service" />
+                }
+              </div>
+            }
+          </div>
+        </div>
+
+        <button
+          class="slide-nav next"
+          (click)="nextServicesPage()"
+          [disabled]="servicesPage() >= maxServicesPage()"
+          aria-label="Next services slides"
+        >
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
+
+      @if (servicePages().length > 1) {
+        <div class="slider-dots">
+          @for (page of servicePages(); track $index) {
+            <button
+              class="dot"
+              [class.active]="servicesPage() === $index"
+              (click)="goToServicesPage($index)"
+              [attr.aria-label]="'Go to services slide ' + ($index + 1)"
+            ></button>
+          }
+        </div>
+      }
+
+      <div class="section-cta">
+        <a routerLink="/services" class="btn-primary">View All Services</a>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="section section-band why-section">
+  <div class="container">
+    <app-section-title
+      subtitle="Why Choose Us"
+      title="The नखRaah Difference"
+    />
+    <div class="why-grid">
+      @for (item of whyChooseUs; track item.title; let i = $index) {
+        <div class="why-card floating-card" appScrollReveal="fade-up" [delay]="i * 100">
+          <div class="icon-wrap"><mat-icon>{{ item.icon }}</mat-icon></div>
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.desc }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Gallery Preview -->
+<section class="section gallery-preview">
+  <div class="container">
+    <app-section-title
+      subtitle="Portfolio"
+      title="Gallery Preview"
+      description="A glimpse into our latest creations"
+    />
+    <div class="preview-slider" appScrollReveal="fade-up">
+      <button
+        class="slide-nav prev"
+        (click)="prevGalleryPage()"
+        [disabled]="galleryPage() === 0"
+        aria-label="Previous gallery slides"
+      >
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+
+      <div class="slider-viewport">
+        <div
+          class="slider-track"
+          [style.transform]="'translateX(-' + galleryPage() * 100 + '%)'"
+        >
+          @for (page of galleryPages(); track $index) {
+            <div class="slide-page">
+              @for (item of page; track item.id) {
+                <div class="gallery-item">
+                  <img [src]="api.resolveImageUrl(item.image_url)" [alt]="item.alt_text || item.title" loading="lazy" />
+                  <div class="gallery-overlay">
+                    <span>{{ item.title }}</span>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <button
+        class="slide-nav next"
+        (click)="nextGalleryPage()"
+        [disabled]="galleryPage() >= maxGalleryPage()"
+        aria-label="Next gallery slides"
+      >
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
+
+    @if (galleryPages().length > 1) {
+      <div class="slider-dots">
+        @for (page of galleryPages(); track $index) {
+          <button
+            class="dot"
+            [class.active]="galleryPage() === $index"
+            (click)="goToGalleryPage($index)"
+            [attr.aria-label]="'Go to gallery slide ' + ($index + 1)"
+          ></button>
+        }
+      </div>
+    }
+    <div class="section-cta">
+      <a routerLink="/gallery" class="btn-outline">Explore Full Gallery</a>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="section testimonials-section">
+  <div class="container">
+    <app-section-title
+      subtitle="Testimonials"
+      title="What Our Clients Say"
+    />
+    <div class="testimonials-grid">
+      @for (t of testimonials(); track t.id) {
+        <app-testimonial-card [testimonial]="t" appScrollReveal="fade-up" />
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Instagram Feed -->
+<section class="section instagram-section">
+  <div class="container">
+    <app-section-title
+      subtitle="@nakhraah"
+      title="Follow Our Journey"
+      description="Get inspired by our latest creations on Instagram"
+    />
+    <div class="instagram-grid">
+      @for (img of instagramPosts; track img; let i = $index) {
+        <a [href]="env.instagramUrl" target="_blank" rel="noopener" class="insta-item" appScrollReveal="fade-up" [delay]="i * 60">
+          <img [src]="img" alt="Instagram post" loading="lazy" />
+          <div class="insta-overlay"><mat-icon>photo_camera</mat-icon></div>
+        </a>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section section-band cta-section">
+  <div class="container">
+    <div class="cta-content premium-panel" appScrollReveal="fade-up">
+      <h2>Ready to Treat Yourself?</h2>
+      <p>Book your appointment today and experience the luxury you deserve.</p>
+      <div class="cta-actions">
+        <a routerLink="/contact" class="btn-primary">Book Now</a>
+        <a [href]="'https://wa.me/' + env.whatsappNumber" target="_blank" class="btn-outline">
+          <mat-icon>chat</mat-icon> WhatsApp Us
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

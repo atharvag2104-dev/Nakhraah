@@ -1,0 +1,149 @@
+@use 'variables' as *;
+
+@mixin glass-card {
+  background: $glass-bg;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid $glass-border;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-soft;
+  transition: transform $transition, box-shadow $transition, border-color $transition;
+}
+
+@mixin hover-lift {
+  @include glass-card;
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: $shadow-hover;
+    border-color: rgba($accent, 0.25);
+  }
+}
+
+@mixin section-padding {
+  padding: 5.5rem 0;
+  @media (max-width: 768px) {
+    padding: 3.5rem 0;
+  }
+}
+
+@mixin container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+@mixin image-zoom {
+  overflow: hidden;
+  img {
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  &:hover img {
+    transform: scale(1.07);
+  }
+}
+
+@mixin btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem 2.1rem;
+  background: $gradient-brand;
+  color: $text;
+  border: none;
+  border-radius: $radius-full;
+  font-family: $font-primary;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all $transition;
+  text-decoration: none;
+  box-shadow: $shadow-glow;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), transparent 60%);
+    opacity: 0;
+    transition: opacity $transition;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 36px rgba(240, 138, 155, 0.4);
+
+    &::before { opacity: 1; }
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+}
+
+@mixin btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  color: $text;
+  border: 2px solid rgba($accent, 0.35);
+  border-radius: $radius-full;
+  font-family: $font-primary;
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all $transition;
+  text-decoration: none;
+
+  &:hover {
+    background: $white;
+    border-color: $accent;
+    color: $accent-deep;
+    transform: translateY(-3px);
+    box-shadow: $shadow-soft;
+  }
+}
+
+@mixin page-hero-bg {
+  background: linear-gradient(
+    155deg,
+    $primary-light 0%,
+    rgba($secondary, 0.32) 42%,
+    rgba($primary, 0.4) 100%
+  );
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 480px;
+    height: 480px;
+    border-radius: 50%;
+    background: rgba($primary, 0.55);
+    filter: blur(90px);
+    top: -200px;
+    right: -140px;
+    pointer-events: none;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 360px;
+    height: 360px;
+    border-radius: 50%;
+    background: rgba($secondary, 0.4);
+    filter: blur(80px);
+    bottom: -160px;
+    left: -100px;
+    pointer-events: none;
+  }
+}

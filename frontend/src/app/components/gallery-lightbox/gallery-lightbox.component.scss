@@ -1,0 +1,68 @@
+@use '../../../styles/variables' as *;
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 6, 10, 0.94);
+  backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  animation: fadeIn 0.3s ease;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+
+  img {
+    max-width: 100%;
+    max-height: 80vh;
+    border-radius: $radius-md;
+    object-fit: contain;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: -48px;
+    right: 0;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+
+    &:hover { background: rgba(240, 138, 155, 0.5); }
+  }
+
+  .caption {
+    text-align: center;
+    padding-top: 1rem;
+    color: white;
+
+    h3 {
+      font-family: $font-display;
+      margin: 0 0 0.25rem;
+    }
+
+    .category {
+      text-transform: capitalize;
+      color: $secondary;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

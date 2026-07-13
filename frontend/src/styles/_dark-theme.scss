@@ -1,0 +1,52 @@
+@use 'variables' as *;
+
+body.dark-mode {
+  .btn-primary {
+    color: $dark-text;
+    box-shadow: 0 4px 24px $dark-accent-glow;
+
+    &:hover {
+      box-shadow: 0 8px 36px rgba(240, 138, 155, 0.45);
+    }
+  }
+
+  .btn-outline {
+    color: $dark-text;
+    border-color: rgba(240, 138, 155, 0.45);
+    background: transparent;
+
+    &:hover {
+      background: rgba(240, 138, 155, 0.12);
+      border-color: $accent;
+      color: $dark-text;
+    }
+  }
+
+  .mat-mdc-form-field {
+    --mdc-outlined-text-field-outline-color: #{$dark-border};
+    --mdc-outlined-text-field-hover-outline-color: #{rgba($accent, 0.5)};
+    --mdc-outlined-text-field-focus-outline-color: #{$accent};
+    --mdc-outlined-text-field-label-text-color: #{$dark-text-muted};
+    --mdc-outlined-text-field-input-text-color: #{$dark-text};
+    --mdc-outlined-text-field-caret-color: #{$accent};
+    --mat-select-enabled-trigger-text-color: #{$dark-text};
+    --mat-select-enabled-arrow-color: #{$dark-text-muted};
+  }
+
+  .mat-mdc-text-field-wrapper {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border-radius: #{$radius-sm} !important;
+  }
+
+  .mat-mdc-select-panel {
+    background: #{$dark-surface-2} !important;
+  }
+
+  .mat-mdc-option {
+    color: #{$dark-text} !important;
+  }
+
+  .mat-mdc-snack-bar-container {
+    --mdc-snackbar-container-color: #{$dark-surface-3};
+  }
+}

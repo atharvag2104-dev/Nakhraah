@@ -1,0 +1,115 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.btn-primary {
+  @include btn-primary;
+}
+
+.btn-outline {
+  @include btn-outline;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.section-cta {
+  text-align: center;
+  margin-top: 2.5rem;
+}
+
+.container {
+  @include container;
+}
+
+.section {
+  @include section-padding;
+  position: relative;
+}
+
+.section-band {
+  background: linear-gradient(
+    180deg,
+    rgba($secondary, 0.06) 0%,
+    rgba($secondary, 0.14) 50%,
+    rgba($secondary, 0.06) 100%
+  );
+  border-top: 1px solid rgba($accent, 0.08);
+  border-bottom: 1px solid rgba($accent, 0.08);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba($accent, 0.04) 0%, transparent 65%);
+    pointer-events: none;
+  }
+}
+
+.premium-panel {
+  @include glass-card;
+  padding: clamp(2rem, 4vw, 3rem);
+  background: linear-gradient(
+    145deg,
+    rgba($white, 0.96) 0%,
+    rgba($secondary, 0.22) 100%
+  );
+  border: 1px solid rgba($accent, 0.12);
+  box-shadow: $shadow-medium;
+}
+
+.page-hero {
+  @include page-hero-bg;
+  padding: 6rem 0 4rem;
+  text-align: center;
+
+  .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  h1 {
+    font-family: $font-display;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    margin: 0 0 0.75rem;
+  }
+
+  p {
+    color: $text-light;
+    font-size: 1.1rem;
+  }
+}
+
+body.dark-mode {
+  .section-band {
+    background: linear-gradient(
+      180deg,
+      rgba(240, 138, 155, 0.04) 0%,
+      rgba(240, 138, 155, 0.08) 50%,
+      rgba(240, 138, 155, 0.04) 100%
+    );
+    border-color: rgba(240, 138, 155, 0.1);
+  }
+
+  .premium-panel {
+    background: linear-gradient(145deg, $dark-surface-2 0%, rgba(240, 138, 155, 0.08) 100%);
+    border-color: $dark-glass-border;
+    box-shadow: $dark-shadow;
+  }
+
+  .page-hero {
+    background: linear-gradient(
+      155deg,
+      $dark-surface 0%,
+      rgba(240, 138, 155, 0.1) 50%,
+      $dark-bg-alt 100%
+    );
+
+    h1 { color: $dark-text; }
+    p { color: $dark-text-muted; }
+  }
+}

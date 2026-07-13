@@ -1,0 +1,25 @@
+<div class="admin-page">
+  <div class="page-header">
+    <h1>Manage Testimonials</h1>
+    <p>{{ testimonials().length }} reviews</p>
+  </div>
+
+  <div class="testimonials-list">
+    @for (t of testimonials(); track t.id) {
+      <div class="testimonial-item">
+        <div class="stars">
+          @for (s of [1,2,3,4,5]; track s) {
+            <mat-icon [class.filled]="s <= t.rating">star</mat-icon>
+          }
+        </div>
+        <p>"{{ t.review }}"</p>
+        <div class="meta">
+          <span>{{ t.client_name }}</span>
+          <button mat-icon-button color="warn" (click)="deleteTestimonial(t.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</div>

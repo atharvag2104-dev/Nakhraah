@@ -1,0 +1,25 @@
+@use 'variables' as *;
+
+@mixin dark-glass-card {
+  background: $dark-glass-bg;
+  border-color: $dark-glass-border;
+  box-shadow: $dark-shadow;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+@mixin dark-page-hero {
+  background: linear-gradient(
+    135deg,
+    $dark-surface 0%,
+    rgba(240, 138, 155, 0.14) 55%,
+    $dark-bg-alt 100%
+  );
+
+  h1 { color: $dark-text; }
+  p { color: $dark-text-muted; }
+}
+
+@mixin dark-section-alt {
+  background: linear-gradient(180deg, $dark-bg-alt 0%, $dark-surface 100%);
+}

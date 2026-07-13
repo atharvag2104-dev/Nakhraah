@@ -1,0 +1,25 @@
+<section class="page-hero">
+  <div class="container">
+    <h1>Our Services</h1>
+    <p>Indulge in premium treatments crafted for perfection</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <app-section-title
+      subtitle="Treatments"
+      title="Luxury Nail Services"
+      description="Each service is performed with premium products, meticulous care, and artistic flair."
+    />
+    @if (loading()) {
+      <app-loading-spinner />
+    } @else {
+      <div class="services-grid">
+        @for (service of services(); track service.id; let i = $index) {
+          <app-service-card [service]="service" appScrollReveal="fade-up" [delay]="(i % 3) * 100" />
+        }
+      </div>
+    }
+  </div>
+</section>

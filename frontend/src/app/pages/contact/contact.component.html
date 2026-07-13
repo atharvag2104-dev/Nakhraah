@@ -1,0 +1,150 @@
+<section class="page-hero">
+  <div class="container">
+    <h1>Contact Us</h1>
+    <p>We'd love to hear from you</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info" appScrollReveal="fade-right">
+        <app-section-title
+          subtitle="Get in Touch"
+          title="Visit Our Studio"
+          [center]="false"
+        />
+
+        <div class="info-cards">
+          <div class="info-card">
+            <mat-icon>location_on</mat-icon>
+            <div>
+              <h4>Address</h4>
+              <p>{{ env.studioAddress }}</p>
+            </div>
+          </div>
+          <div class="info-card">
+            <mat-icon>phone</mat-icon>
+            <div>
+              <h4>Phone</h4>
+              <p><a [href]="'tel:' + env.studioPhone">{{ env.studioPhone }}</a></p>
+            </div>
+          </div>
+          <div class="info-card">
+            <mat-icon>schedule</mat-icon>
+            <div>
+              <h4>Business Hours</h4>
+              <p>Mon–Fri: {{ env.businessHours.weekdays }}</p>
+              <p>Saturday: {{ env.businessHours.saturday }}</p>
+              <p>Sunday: {{ env.businessHours.sunday }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="social-buttons">
+          <a [href]="'https://wa.me/' + env.whatsappNumber" target="_blank" class="social-btn whatsapp">
+            <mat-icon>chat</mat-icon> WhatsApp
+          </a>
+          <a [href]="env.instagramUrl" target="_blank" class="social-btn instagram">
+            <mat-icon>photo_camera</mat-icon> Instagram
+          </a>
+          <a [href]="env.facebookUrl" target="_blank" class="social-btn facebook">
+            <mat-icon>facebook</mat-icon> Facebook
+          </a>
+        </div>
+
+        <div class="map-container">
+          <iframe
+            [src]="mapUrl"
+            width="100%"
+            height="250"
+            style="border:0; border-radius: 16px;"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Studio Location"
+          ></iframe>
+        </div>
+      </div>
+
+      <div class="contact-form-wrap" appScrollReveal="fade-left" [delay]="200">
+        <div class="form-card">
+          <h2>Book an Appointment</h2>
+          <p>Fill in the details and we'll get back to you shortly.</p>
+
+          @if (submitted()) {
+            <div class="success-message">
+              <mat-icon>check_circle</mat-icon>
+              <p>Thank you! Your appointment request has been submitted.</p>
+            </div>
+          }
+
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="outline">
+              <mat-label>Full Name</mat-label>
+              <input matInput formControlName="name" />
+              @if (getError('name')) {
+                <mat-error>{{ getError('name') }}</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Phone</mat-label>
+              <input matInput formControlName="phone" />
+              @if (getError('phone')) {
+                <mat-error>{{ getError('phone') }}</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput type="email" formControlName="email" />
+              @if (getError('email')) {
+                <mat-error>{{ getError('email') }}</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Service</mat-label>
+              <mat-select formControlName="service_id">
+                <mat-option value="">Select a service</mat-option>
+                @for (s of services(); track s.id) {
+                  <mat-option [value]="s.id">{{ s.name }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+
+            <div class="form-row">
+              <mat-form-field appearance="outline">
+                <mat-label>Preferred Date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="preferred_date" [min]="today" />
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                @if (getError('preferred_date')) {
+                  <mat-error>{{ getError('preferred_date') }}</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Preferred Time</mat-label>
+                <input matInput type="time" formControlName="preferred_time" />
+                @if (getError('preferred_time')) {
+                  <mat-error>{{ getError('preferred_time') }}</mat-error>
+                }
+              </mat-form-field>
+            </div>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Message (optional)</mat-label>
+              <textarea matInput formControlName="message" rows="3"></textarea>
+            </mat-form-field>
+
+            <button mat-flat-button type="submit" class="submit-btn" [disabled]="submitting()">
+              {{ submitting() ? 'Submitting...' : 'Submit Appointment' }}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

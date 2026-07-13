@@ -1,0 +1,91 @@
+<section class="page-hero">
+  <div class="container">
+    <h1>About Us</h1>
+    <p>Discover the heart and soul behind नखRaah</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="story-block">
+      <div appScrollReveal="fade-right">
+        <app-section-title
+          subtitle="Our Story"
+          title="A Bond of Beauty & Vision"
+          [center]="false"
+          description="नखRaah was born from late-night conversations between two cousins who shared a dream — to create a sanctuary where beauty meets artistry. What began as experimenting with nail art at home has evolved into a premium studio loved by hundreds of clients across Pune."
+        />
+      </div>
+      <div class="story-image" appScrollReveal="fade-left" [delay]="200">
+        <img src="assets/images/logo.png" alt="Our Story" loading="lazy" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-band mission-section">
+  <div class="container">
+    <div class="mission-grid">
+      <div class="mission-card floating-card" appScrollReveal="fade-up">
+        <mat-icon>flag</mat-icon>
+        <h2>Our Mission</h2>
+        <p>To deliver exceptional nail artistry that makes every client feel confident, pampered, and uniquely beautiful.</p>
+      </div>
+      <div class="mission-card floating-card" appScrollReveal="fade-up" [delay]="150">
+        <mat-icon>visibility</mat-icon>
+        <h2>Our Vision</h2>
+        <p>To be Pune's most trusted nail studio — where creativity, hygiene, and luxury come together in every appointment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <app-section-title
+      subtitle="The Team"
+      title="Meet the Cousins"
+      description="The passionate duo behind every design at नखRaah."
+    />
+    <div class="team-grid">
+      @for (member of team; track member.name; let i = $index) {
+        <div class="team-card floating-card" appScrollReveal="fade-up" [delay]="i * 150">
+          <div class="team-image">
+            <img [src]="member.image" [alt]="member.name" loading="lazy" />
+          </div>
+          <h3>{{ member.name }}</h3>
+          <span class="role">{{ member.role }}</span>
+          <p>{{ member.bio }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="section philosophy-section">
+  <div class="container">
+    <app-section-title
+      subtitle="Philosophy"
+      title="What We Believe"
+    />
+    <div class="philosophy-grid">
+      @for (item of philosophy; track item.title; let i = $index) {
+        <div class="philosophy-card" appScrollReveal="fade-up" [delay]="i * 100">
+          <mat-icon>{{ item.icon }}</mat-icon>
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.desc }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="section counter-section">
+  <div class="container">
+    <div class="counter-card" appScrollReveal="fade-up">
+      <div class="counter-number">{{ clientCount() }}+</div>
+      <h2>Happy Clients & Counting</h2>
+      <p>Trusted by nail art lovers across Pune</p>
+    </div>
+  </div>
+</section>

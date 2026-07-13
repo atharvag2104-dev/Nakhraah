@@ -1,0 +1,104 @@
+<section class="page-hero">
+  <div class="container">
+    <h1>Gallery</h1>
+    <p>Our portfolio of nail artistry</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="filter-bar" appScrollReveal="fade-up">
+      @for (cat of categories; track cat.value) {
+        <button
+          class="filter-btn"
+          [class.active]="activeCategory() === cat.value"
+          (click)="filterCategory(cat.value)"
+        >{{ cat.label }}</button>
+      }
+    </div>
+
+    @if (loading()) {
+      <app-loading-spinner />
+    } @else if (filteredItems().length === 0) {
+      <p class="empty-state">No images found in this category.</p>
+    } @else {
+      <div
+        class="premium-slider"
+        appScrollReveal="fade-up"
+        (mouseenter)="pauseAutoplay()"
+        (mouseleave)="resumeAutoplay()"
+      >
+        <div class="slider-frame">
+          <div class="slider-viewport">
+            @if (currentSlide(); as slide) {
+              <div class="slide active" (click)="openLightbox(slide)">
+                <img
+                  [src]="api.resolveImageUrl(slide.image_url)"
+                  [alt]="slide.alt_text || slide.title"
+                />
+                <div class="slide-overlay">
+                  <span class="slide-category">{{ slide.category }}</span>
+                  <h2>{{ slide.title }}</h2>
+                  <p class="slide-hint">
+                    <mat-icon>zoom_in</mat-icon> Tap to view full size
+                  </p>
+                </div>
+              </div>
+            }
+
+            <button class="nav-btn prev" (click)="prevSlide()" aria-label="Previous slide">
+              <mat-icon>chevron_left</mat-icon>
+            </button>
+            <button class="nav-btn next" (click)="nextSlide()" aria-label="Next slide">
+              <mat-icon>chevron_right</mat-icon>
+            </button>
+
+            <div class="slide-counter">
+              <span class="current">{{ formatIndex(currentIndex()) }}</span>
+              <span class="divider">/</span>
+              <span class="total">{{ formatIndex(filteredItems().length - 1) }}</span>
+            </div>
+          </div>
+
+          <div class="progress-track">
+            <div
+              class="progress-fill"
+              [style.width.%]="((currentIndex() + 1) / filteredItems().length) * 100"
+            ></div>
+          </div>
+        </div>
+
+        <div class="thumb-strip">
+          @for (item of filteredItems(); track item.id; let i = $index) {
+            <button
+              class="thumb"
+              [class.active]="currentIndex() === i"
+              (click)="goToSlide(i)"
+              [attr.aria-label]="'View ' + item.title"
+            >
+              <img
+                [src]="api.resolveImageUrl(item.image_url)"
+                [alt]="item.alt_text || item.title"
+                loading="lazy"
+              />
+              <span class="thumb-label">{{ item.title }}</span>
+            </button>
+          }
+        </div>
+
+        <div class="dot-row">
+          @for (item of filteredItems(); track item.id; let i = $index) {
+            <button
+              class="dot"
+              [class.active]="currentIndex() === i"
+              (click)="goToSlide(i)"
+              [attr.aria-label]="'Go to slide ' + (i + 1)"
+            ></button>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</section>
+
+<app-gallery-lightbox [item]="selectedItem()" (close)="closeLightbox()" />

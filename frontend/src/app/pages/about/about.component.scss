@@ -1,0 +1,221 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+@use '../../../styles/dark-mixins' as *;
+
+.container { @include container; }
+.section { @include section-padding; }
+
+.story-block {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 4rem;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+
+  .story-image img {
+    width: 240px;
+    height: 240px;
+    max-width: none;
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    border: 4px solid rgba(250, 212, 222, 0.8);
+    box-shadow: $shadow-hover;
+    background: $primary;
+  }
+}
+
+.mission-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+
+  @media (max-width: 768px) { grid-template-columns: 1fr; }
+}
+
+.mission-card {
+  @include glass-card;
+  padding: 2.5rem;
+  text-align: center;
+  background: $white;
+  box-shadow: $shadow-soft;
+  border: 1px solid rgba($accent, 0.1);
+
+  mat-icon {
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    color: $accent;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-family: $font-display;
+    margin: 0 0 1rem;
+  }
+
+  p {
+    color: $text-light;
+    line-height: 1.7;
+    margin: 0;
+  }
+}
+
+.sisters-grid,
+.team-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+
+  @media (max-width: 576px) { grid-template-columns: 1fr; }
+}
+
+.sister-card,
+.team-card {
+  @include glass-card;
+  text-align: center;
+  padding: 2rem;
+  overflow: hidden;
+  background: $white;
+  box-shadow: $shadow-soft;
+  border: 1px solid rgba($accent, 0.1);
+
+  .sister-image,
+  .team-image {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 1.5rem;
+    border: 4px solid $secondary;
+
+    img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  }
+
+  h3 {
+    font-family: $font-display;
+    font-size: 1.5rem;
+    margin: 0 0 0.25rem;
+  }
+
+  .role {
+    color: $accent;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  p {
+    color: $text-light;
+    line-height: 1.6;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+  }
+}
+
+.philosophy-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+
+  @media (max-width: 768px) { grid-template-columns: 1fr; }
+}
+
+.philosophy-card {
+  @include glass-card;
+  text-align: center;
+  padding: 2rem;
+  background: $white;
+  box-shadow: $shadow-soft;
+  border: 1px solid rgba($accent, 0.08);
+
+  mat-icon {
+    font-size: 36px;
+    width: 36px;
+    height: 36px;
+    color: $accent;
+    margin-bottom: 1rem;
+  }
+
+  h3 {
+    font-family: $font-display;
+    margin: 0 0 0.75rem;
+  }
+
+  p {
+    color: $text-light;
+    line-height: 1.6;
+    margin: 0;
+    font-size: 0.95rem;
+  }
+}
+
+.counter-section { padding-bottom: 6rem; }
+
+.counter-card {
+  @include glass-card;
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, $secondary, $accent);
+
+  .counter-number {
+    font-family: $font-display;
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 700;
+    color: $text;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  h2 {
+    font-family: $font-display;
+    font-size: 1.75rem;
+    margin: 0 0 0.5rem;
+  }
+
+  p {
+    color: rgba($text, 0.8);
+    margin: 0;
+  }
+}
+
+.floating-card {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+:host-context(.dark-mode) {
+  .mission-card,
+  .team-card {
+    @include dark-glass-card;
+
+    h2, h3 { color: $dark-text; }
+    p { color: $dark-text-muted; }
+  }
+
+  .philosophy-card {
+    h3 { color: $dark-text; }
+    p { color: $dark-text-muted; }
+  }
+
+  .counter-card {
+    background: linear-gradient(135deg, rgba(240, 138, 155, 0.35), rgba(250, 212, 222, 0.2));
+    border-color: $dark-border;
+
+    .counter-number,
+    h2 { color: $dark-text; }
+    p { color: $dark-text-muted; }
+  }
+}
