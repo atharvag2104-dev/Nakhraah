@@ -8,8 +8,8 @@ import { MatIconModule } from '@angular/material/icon';
   template: `
     @if (visible()) {
       <button class="back-to-top" (click)="scrollTop()" aria-label="Back to top">
-        <mat-icon>keyboard_arrow_up</mat-icon>
-      </button>
+        <mat-icon>keyboard_arrow_up</mat-icon></button>
+      
     }
   `,
   styles: [`
