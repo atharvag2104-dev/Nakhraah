@@ -3,33 +3,37 @@ import {
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { GalleryLightboxComponent } from '../../components/gallery-lightbox/gallery-lightbox.component';
-import { LoadingSpinnerComponent } from '../../components/loading-spinner/loading-spinner.component';
+import { SectionTitleComponent } from '../../components/section-title/section-title.component';
+import { AmbientVideoComponent } from '../../components/ambient-video/ambient-video.component';
 import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive';
 import { SeoService } from '../../services/seo.service';
-import { ApiService } from '../../services/api.service';
 import { GalleryItem, GALLERY_CATEGORIES, GalleryCategory } from '../../models';
 import { STATIC_GALLERY_IMAGES } from '../../core/constants/static-images';
+import { resolveImageUrl } from '../../core/utils/image-url';
 
 @Component({
   selector: 'app-gallery',
   standalone: true,
   imports: [
-    MatIconModule, GalleryLightboxComponent,
-    LoadingSpinnerComponent, ScrollRevealDirective,
+    MatIconModule,
+    GalleryLightboxComponent,
+    SectionTitleComponent,
+    AmbientVideoComponent,
+    ScrollRevealDirective,
   ],
   templateUrl: './gallery.component.html',
   styleUrl: './gallery.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GalleryPageComponent implements OnInit, OnDestroy {
-  items = signal<GalleryItem[]>([]);
-  filteredItems = signal<GalleryItem[]>([]);
+  items = signal<GalleryItem[]>(STATIC_GALLERY_IMAGES as GalleryItem[]);
+  filteredItems = signal<GalleryItem[]>(STATIC_GALLERY_IMAGES as GalleryItem[]);
   activeCategory = signal<GalleryCategory>('all');
   currentIndex = signal(0);
   selectedItem = signal<GalleryItem | null>(null);
-  loading = signal(true);
   paused = signal(false);
   categories = GALLERY_CATEGORIES;
+  readonly resolveImageUrl = resolveImageUrl;
 
   currentSlide = computed(() => {
     const list = this.filteredItems();
@@ -38,21 +42,13 @@ export class GalleryPageComponent implements OnInit, OnDestroy {
 
   private autoplayTimer?: ReturnType<typeof setInterval>;
 
-  constructor(
-    private seo: SeoService,
-    public api: ApiService
-  ) {}
+  constructor(private seo: SeoService) {}
 
   ngOnInit(): void {
     this.seo.update({
       title: 'Gallery',
       description: 'Browse our nail art portfolio — Bridal, Minimal, Luxury, French, Chrome, Glitter & Festive designs.',
     });
-
-    const data = STATIC_GALLERY_IMAGES;
-    this.items.set(data);
-    this.filteredItems.set(data);
-    this.loading.set(false);
     this.startAutoplay();
   }
 

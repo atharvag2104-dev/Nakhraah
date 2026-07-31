@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
 import { MainLayoutComponent } from './core/layouts/main-layout/main-layout.component';
-import { AdminLayoutComponent } from './core/layouts/admin-layout/admin-layout.component';
-import { authGuard, guestGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -29,49 +27,20 @@ export const routes: Routes = [
         title: 'Gallery | नखRaah Nail Studio',
       },
       {
+        path: 'blog',
+        loadComponent: () => import('./pages/blog/blog.component').then((m) => m.BlogPageComponent),
+        title: 'Blog | नखRaah Nail Studio',
+      },
+      {
+        path: 'blog/:slug',
+        loadComponent: () => import('./pages/blog-post/blog-post.component').then((m) => m.BlogPostPageComponent),
+        title: 'Blog | नखRaah Nail Studio',
+      },
+      {
         path: 'contact',
         loadComponent: () => import('./pages/contact/contact.component').then((m) => m.ContactComponent),
         title: 'Contact | नखRaah Nail Studio',
       },
-    ],
-  },
-  {
-    path: 'admin/login',
-    loadComponent: () => import('./pages/admin/login/admin-login.component').then((m) => m.AdminLoginComponent),
-    canActivate: [guestGuard],
-    title: 'Admin Login | नखRaah',
-  },
-  {
-    path: 'admin',
-    component: AdminLayoutComponent,
-    canActivate: [authGuard],
-    children: [
-      {
-        path: 'dashboard',
-        loadComponent: () => import('./pages/admin/dashboard/admin-dashboard.component').then((m) => m.AdminDashboardComponent),
-        title: 'Dashboard | Admin',
-      },
-      {
-        path: 'services',
-        loadComponent: () => import('./pages/admin/services/admin-services.component').then((m) => m.AdminServicesComponent),
-        title: 'Services | Admin',
-      },
-      {
-        path: 'gallery',
-        loadComponent: () => import('./pages/admin/gallery/admin-gallery.component').then((m) => m.AdminGalleryComponent),
-        title: 'Gallery | Admin',
-      },
-      {
-        path: 'appointments',
-        loadComponent: () => import('./pages/admin/appointments/admin-appointments.component').then((m) => m.AdminAppointmentsComponent),
-        title: 'Appointments | Admin',
-      },
-      {
-        path: 'testimonials',
-        loadComponent: () => import('./pages/admin/testimonials/admin-testimonials.component').then((m) => m.AdminTestimonialsComponent),
-        title: 'Testimonials | Admin',
-      },
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
   { path: '**', redirectTo: '' },

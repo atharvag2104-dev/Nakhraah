@@ -1,7 +1,35 @@
 <section class="page-hero">
   <div class="container">
+    <p class="eyebrow">Portfolio</p>
     <h1>Gallery</h1>
-    <p>Our portfolio of nail artistry</p>
+    <p class="lede">Bridal couture, quiet French, chrome light, and bespoke sets from the नखRaah chair.</p>
+  </div>
+</section>
+
+<section class="section" aria-label="Studio craft film">
+  <div class="container">
+    <div class="craft-block">
+      <div appScrollReveal="fade-right">
+        <app-section-title
+          subtitle="Process"
+          title="Craft, in motion"
+          [center]="false"
+          description="A quieter look at the studio rhythm — light, finish, and hands at work. Watch the pace we protect in every appointment: unhurried, precise, and composed for lasting beauty."
+        />
+        <p class="craft-extra">
+          Prefer a particular style? Save looks from this gallery or Instagram, then bring them to your booking —
+          we’ll adapt colour, length, and detail to your hands and occasion.
+        </p>
+      </div>
+      <div class="craft-media" appScrollReveal="fade-left" [delay]="200">
+        <app-ambient-video
+          src="/assets/videos/craft.mp4"
+          poster="/assets/images/gallery/g1.jpg"
+          caption="Studio reel"
+          [portrait]="true"
+        />
+      </div>
+    </div>
   </div>
 </section>
 
@@ -17,9 +45,7 @@
       }
     </div>
 
-    @if (loading()) {
-      <app-loading-spinner />
-    } @else if (filteredItems().length === 0) {
+    @if (filteredItems().length === 0) {
       <p class="empty-state">No images found in this category.</p>
     } @else {
       <div
@@ -33,7 +59,7 @@
             @if (currentSlide(); as slide) {
               <div class="slide active" (click)="openLightbox(slide)">
                 <img
-                  [src]="api.resolveImageUrl(slide.image_url)"
+                  [src]="resolveImageUrl(slide.image_url)"
                   [alt]="slide.alt_text || slide.title"
                 />
                 <div class="slide-overlay">
@@ -77,7 +103,7 @@
               [attr.aria-label]="'View ' + item.title"
             >
               <img
-                [src]="api.resolveImageUrl(item.image_url)"
+                [src]="resolveImageUrl(item.image_url)"
                 [alt]="item.alt_text || item.title"
                 loading="lazy"
               />

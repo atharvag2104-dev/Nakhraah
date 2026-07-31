@@ -1,0 +1,56 @@
+@if (post(); as article) {
+  <article class="post">
+    <header class="page-hero post-hero">
+      <div class="container">
+        <a routerLink="/blog" class="back-link">
+          <mat-icon>arrow_back</mat-icon>
+          All articles
+        </a>
+        <p class="eyebrow">{{ article.category }} · {{ article.read_minutes }} min read</p>
+        <h1>{{ article.title }}</h1>
+        <time [attr.datetime]="article.published_at">
+          {{ article.published_at | date: 'MMMM d, y' }}
+        </time>
+      </div>
+    </header>
+
+    <section class="section post-body">
+      <div class="container narrow">
+        <div class="cover" appScrollReveal="fade-up">
+          <img
+            [src]="article.cover_image"
+            [alt]="article.title"
+            (error)="onImageError($event)"
+          />
+        </div>
+
+        <div class="prose" appScrollReveal="fade-up" [delay]="80">
+          @for (paragraph of article.body; track $index) {
+            <p>{{ paragraph }}</p>
+          }
+        </div>
+
+        <div class="post-cta" appScrollReveal="fade-up" [delay]="120">
+          <p>Want hands that look this considered?</p>
+          <a routerLink="/contact" class="btn-primary" appMagnetic="14">Book Appointment</a>
+        </div>
+      </div>
+    </section>
+
+    @if (related().length) {
+      <section class="section related">
+        <div class="container">
+          <h2>More from the journal</h2>
+          <div class="related-list">
+            @for (item of related(); track item.id) {
+              <a [routerLink]="['/blog', item.slug]" class="related-link">
+                <span class="related-cat">{{ item.category }}</span>
+                <span class="related-title">{{ item.title }}</span>
+              </a>
+            }
+          </div>
+        </div>
+      </section>
+    }
+  </article>
+}

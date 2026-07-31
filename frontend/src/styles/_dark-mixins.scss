@@ -4,15 +4,15 @@
   background: $dark-glass-bg;
   border-color: $dark-glass-border;
   box-shadow: $dark-shadow;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 }
 
 @mixin dark-page-hero {
   background: linear-gradient(
     135deg,
     $dark-surface 0%,
-    rgba(240, 138, 155, 0.14) 55%,
+    rgba(196, 165, 116, 0.12) 55%,
     $dark-bg-alt 100%
   );
 

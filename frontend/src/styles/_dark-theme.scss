@@ -2,21 +2,23 @@
 
 body.dark-mode {
   .btn-primary {
-    color: $dark-text;
+    color: $ivory;
+    background: $champagne-deep;
     box-shadow: 0 4px 24px $dark-accent-glow;
 
     &:hover {
-      box-shadow: 0 8px 36px rgba(240, 138, 155, 0.45);
+      background: $champagne;
+      box-shadow: 0 8px 36px rgba(196, 165, 116, 0.35);
     }
   }
 
   .btn-outline {
     color: $dark-text;
-    border-color: rgba(240, 138, 155, 0.45);
+    border-color: rgba(196, 165, 116, 0.45);
     background: transparent;
 
     &:hover {
-      background: rgba(240, 138, 155, 0.12);
+      background: rgba(196, 165, 116, 0.12);
       border-color: $accent;
       color: $dark-text;
     }

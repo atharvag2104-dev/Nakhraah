@@ -7,7 +7,7 @@ import { Testimonial } from '../../models';
   standalone: true,
   imports: [MatIconModule],
   template: `
-    <article class="testimonial-card floating-card">
+    <article class="testimonial-card">
       <div class="stars">
         @for (star of stars; track star) {
           <mat-icon>star</mat-icon>

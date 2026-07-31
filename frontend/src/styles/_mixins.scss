@@ -2,43 +2,47 @@
 
 @mixin glass-card {
   background: $glass-bg;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(22px) saturate(1.1);
+  -webkit-backdrop-filter: blur(22px) saturate(1.1);
   border: 1px solid $glass-border;
   border-radius: $radius-lg;
   box-shadow: $shadow-soft;
-  transition: transform $transition, box-shadow $transition, border-color $transition;
+  transition:
+    transform $transition-fast,
+    box-shadow $transition-fast,
+    border-color $transition-fast,
+    background $transition-fast;
 }
 
 @mixin hover-lift {
   @include glass-card;
   &:hover {
-    transform: translateY(-6px);
+    transform: translateY(-6px) rotate(-0.5deg);
     box-shadow: $shadow-hover;
-    border-color: rgba($accent, 0.25);
+    border-color: rgba($champagne, 0.35);
   }
 }
 
 @mixin section-padding {
-  padding: 5.5rem 0;
+  padding: 4.25rem 0;
   @media (max-width: 768px) {
-    padding: 3.5rem 0;
+    padding: 3rem 0;
   }
 }
 
 @mixin container {
-  max-width: 1200px;
+  max-width: 1140px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 1.35rem;
 }
 
 @mixin image-zoom {
   overflow: hidden;
   img {
-    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 1.2s $ease-luxury;
   }
   &:hover img {
-    transform: scale(1.07);
+    transform: scale(1.05);
   }
 }
 
@@ -47,19 +51,23 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.9rem 2.1rem;
-  background: $gradient-brand;
-  color: $text;
+  padding: 1rem 2.25rem;
+  background: $champagne;
+  color: $ivory;
   border: none;
   border-radius: $radius-full;
   font-family: $font-primary;
-  font-weight: 600;
-  font-size: 0.95rem;
-  letter-spacing: 0.02em;
+  font-weight: 500;
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: all $transition;
+  transition:
+    transform $transition-fast,
+    box-shadow $transition-fast,
+    background $transition-fast;
   text-decoration: none;
-  box-shadow: $shadow-glow;
+  box-shadow: 0 8px 28px rgba($champagne-deep, 0.28);
   position: relative;
   overflow: hidden;
 
@@ -67,20 +75,20 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), transparent 60%);
-    opacity: 0;
-    transition: opacity $transition;
+    background: $gradient-gold-shimmer;
+    transform: translateX(-120%);
+    animation: btnShimmer 5.5s $ease-luxury infinite;
+    pointer-events: none;
   }
 
   &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 36px rgba(240, 138, 155, 0.4);
-
-    &::before { opacity: 1; }
+    transform: translateY(-2px);
+    background: $champagne-deep;
+    box-shadow: 0 14px 36px rgba($champagne-deep, 0.32);
   }
 
   &:active {
-    transform: translateY(-1px);
+    transform: translateY(0);
   }
 }
 
@@ -89,61 +97,71 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.875rem 2rem;
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(8px);
-  color: $text;
-  border: 2px solid rgba($accent, 0.35);
+  padding: 0.95rem 2.1rem;
+  background: rgba(251, 249, 244, 0.45);
+  backdrop-filter: blur(10px);
+  color: $ink;
+  border: 1px solid rgba($champagne, 0.45);
   border-radius: $radius-full;
   font-family: $font-primary;
   font-weight: 500;
-  font-size: 0.95rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: all $transition;
+  transition:
+    transform $transition-fast,
+    box-shadow $transition-fast,
+    border-color $transition-fast,
+    background $transition-fast,
+    color $transition-fast;
   text-decoration: none;
 
   &:hover {
-    background: $white;
-    border-color: $accent;
-    color: $accent-deep;
-    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.85);
+    border-color: $champagne;
+    color: $champagne-deep;
+    transform: translateY(-2px);
     box-shadow: $shadow-soft;
   }
 }
 
 @mixin page-hero-bg {
-  background: linear-gradient(
-    155deg,
-    $primary-light 0%,
-    rgba($secondary, 0.32) 42%,
-    rgba($primary, 0.4) 100%
-  );
   position: relative;
   overflow: hidden;
+  background: $ivory;
 
   &::before {
     content: '';
     position: absolute;
-    width: 480px;
-    height: 480px;
-    border-radius: 50%;
-    background: rgba($primary, 0.55);
-    filter: blur(90px);
-    top: -200px;
-    right: -140px;
+    inset: 0;
+    background:
+      linear-gradient(
+        165deg,
+        rgba($ivory, 0.94) 0%,
+        rgba($sage-muted, 0.72) 42%,
+        rgba($ivory, 0.9) 100%
+      ),
+      url('/assets/images/hero/hero-bg.jpg') center 35% / cover no-repeat;
     pointer-events: none;
   }
 
   &::after {
     content: '';
     position: absolute;
-    width: 360px;
-    height: 360px;
-    border-radius: 50%;
-    background: rgba($secondary, 0.4);
-    filter: blur(80px);
-    bottom: -160px;
-    left: -100px;
+    inset: auto 0 0;
+    height: 72px;
+    background: linear-gradient(180deg, transparent, $background);
     pointer-events: none;
+  }
+}
+
+@keyframes btnShimmer {
+  0%,
+  70% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(120%);
   }
 }

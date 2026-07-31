@@ -1,56 +1,83 @@
-// Brand Color Palette — matched to logo
-$primary: #E2F9D1;
-$primary-light: #F0FCE8;
-$primary-deep: #C8EDB5;
-$secondary: #FAD4DE;
-$accent: #F08A9B;
-$accent-deep: #E07A8D;
-$background: #F9FFF5;
-$text: #2A2A2A;
-$text-light: #6B7280;
-$white: #ffffff;
-$beige: #EDF8E6;
+// नखRaah — luxury atelier palette (sage + champagne gold)
+$sage: #DCE8D7;
+$sage-deep: #B8CDB0;
+$sage-muted: #E8F0E4;
+$ivory: #FBF9F4;
+$ivory-warm: #F5F1EA;
+$champagne: #C4A574;
+$champagne-light: #E8D5B5;
+$champagne-deep: #A68B5B;
+$ink: #2C2A26;
+$ink-soft: #5C574F;
+$mist: #8A847A;
 
-$gradient-brand: linear-gradient(135deg, $secondary 0%, $accent 100%);
-$gradient-soft: linear-gradient(135deg, $primary-light 0%, rgba($secondary, 0.45) 100%);
+$primary: $sage;
+$primary-light: $sage-muted;
+$primary-deep: $sage-deep;
+$secondary: $champagne-light;
+$accent: $champagne;
+$accent-deep: $champagne-deep;
+$background: $ivory;
+$text: $ink;
+$text-light: $mist;
+$white: #ffffff;
+$beige: $ivory-warm;
+
+$gradient-brand: linear-gradient(135deg, $champagne-light 0%, $champagne 100%);
+$gradient-soft: linear-gradient(160deg, $ivory 0%, $sage-muted 55%, rgba($champagne-light, 0.35) 100%);
 $gradient-hero: linear-gradient(
-  135deg,
-  rgba(226, 249, 209, 0.92) 0%,
-  rgba(250, 212, 222, 0.75) 45%,
-  rgba(249, 255, 245, 0.88) 100%
+  165deg,
+  rgba(251, 249, 244, 0.55) 0%,
+  rgba(220, 232, 215, 0.42) 45%,
+  rgba(251, 249, 244, 0.72) 100%
+);
+$gradient-gold-shimmer: linear-gradient(
+  105deg,
+  transparent 40%,
+  rgba(255, 255, 255, 0.55) 50%,
+  transparent 60%
 );
 
-$glass-bg: rgba(255, 255, 255, 0.72);
-$glass-border: rgba(255, 255, 255, 0.65);
-$shadow-soft: 0 4px 24px rgba(51, 51, 51, 0.06);
-$shadow-medium: 0 12px 40px rgba(51, 51, 51, 0.08);
-$shadow-hover: 0 20px 50px rgba(240, 138, 155, 0.22);
-$shadow-glow: 0 8px 32px rgba(240, 138, 155, 0.28);
-$radius-sm: 12px;
-$radius-md: 20px;
+$glass-bg: rgba(251, 249, 244, 0.62);
+$glass-border: rgba(255, 255, 255, 0.55);
+$shadow-soft: 0 8px 32px rgba(44, 42, 38, 0.05);
+$shadow-medium: 0 16px 48px rgba(44, 42, 38, 0.07);
+$shadow-hover: 0 24px 56px rgba(196, 165, 116, 0.18);
+$shadow-glow: 0 8px 36px rgba(196, 165, 116, 0.28);
+
+$radius-sm: 14px;
+$radius-md: 22px;
 $radius-lg: 28px;
 $radius-xl: 36px;
 $radius-full: 9999px;
-$transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-$transition-spring: 0.5s cubic-bezier(0.34, 1.4, 0.64, 1);
-$font-primary: 'Poppins', sans-serif;
-$font-display: 'Poppins', sans-serif;
+
+$ease-luxury: cubic-bezier(0.22, 1, 0.36, 1);
+$transition: 0.9s $ease-luxury;
+$transition-fast: 0.55s $ease-luxury;
+$transition-slow: 1.4s $ease-luxury;
+$transition-spring: $transition;
+
+$font-primary: 'Outfit', sans-serif;
+$font-display: 'Cormorant Garamond', Georgia, serif;
+$font-script: 'Cormorant Garamond', Georgia, serif;
+$font-marathi: 'Noto Serif Devanagari', 'Noto Sans Devanagari', serif;
+
 $navbar-height: 80px;
 
-// Dark mode
-$dark-bg: #0f1117;
-$dark-bg-alt: #13161f;
-$dark-surface: #1a1e28;
-$dark-surface-2: #222733;
-$dark-surface-3: #2a3040;
-$dark-border: rgba(240, 138, 155, 0.16);
-$dark-border-subtle: rgba(255, 255, 255, 0.07);
-$dark-text: #eef1f6;
-$dark-text-muted: #949eb2;
-$dark-accent-glow: rgba(240, 138, 155, 0.35);
-$dark-mint-tint: rgba(226, 249, 209, 0.07);
-$dark-pink-tint: rgba(250, 212, 222, 0.08);
-$dark-glass-bg: rgba(26, 30, 39, 0.88);
-$dark-glass-border: rgba(240, 138, 155, 0.14);
-$dark-shadow: 0 8px 40px rgba(0, 0, 0, 0.45);
-$dark-shadow-hover: 0 16px 48px rgba(240, 138, 155, 0.18);
+// Dark mode — soft charcoal, champagne accents
+$dark-bg: #141512;
+$dark-bg-alt: #1a1b18;
+$dark-surface: #222420;
+$dark-surface-2: #2a2c28;
+$dark-surface-3: #343632;
+$dark-border: rgba(196, 165, 116, 0.18);
+$dark-border-subtle: rgba(255, 255, 255, 0.06);
+$dark-text: #f2efe8;
+$dark-text-muted: #a39e94;
+$dark-accent-glow: rgba(196, 165, 116, 0.32);
+$dark-mint-tint: rgba(220, 232, 215, 0.06);
+$dark-pink-tint: rgba(232, 213, 181, 0.06);
+$dark-glass-bg: rgba(34, 36, 32, 0.88);
+$dark-glass-border: rgba(196, 165, 116, 0.14);
+$dark-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+$dark-shadow-hover: 0 20px 52px rgba(196, 165, 116, 0.14);

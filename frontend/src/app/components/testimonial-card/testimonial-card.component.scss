@@ -1,67 +1,97 @@
-@use '../../../styles/variables' as *;
-@use '../../../styles/mixins' as *;
-@use '../../../styles/dark-mixins' as dark;
-
-.testimonial-card {
-  @include glass-card;
-  padding: 2rem;
-  height: 100%;
-
-  .stars {
-    display: flex;
-    gap: 2px;
-    margin-bottom: 1rem;
-    mat-icon {
-      color: $accent;
-      font-size: 20px;
-      width: 20px;
-      height: 20px;
-    }
-  }
-
-  .review {
-    font-style: italic;
-    font-size: 1rem;
-    line-height: 1.7;
-    color: $text;
-    margin: 0 0 1.5rem;
-  }
-
-  .author {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-
-    .avatar {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, $primary, $secondary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      color: $text;
-    }
-
-    span {
-      font-weight: 500;
-      color: $text;
-    }
-  }
-}
-
-:host-context(.dark-mode) .testimonial-card {
-  @include dark.dark-glass-card;
-
-  .review { color: $dark-text; }
-
-  .author {
-    .avatar {
-      background: linear-gradient(135deg, $dark-surface-3, rgba(240, 138, 155, 0.25));
-      color: $dark-text;
-    }
-
-    span { color: $dark-text; }
-  }
-}
+@use '../../../styles/variables' as *;
+
+.testimonial-card {
+  padding: 1.5rem 0.5rem 1.75rem;
+  height: 100%;
+  position: relative;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  animation: none;
+
+  &::before {
+    content: '“';
+    position: absolute;
+    top: 0.15rem;
+    left: 0;
+    font-family: $font-display;
+    font-size: 3.5rem;
+    line-height: 1;
+    color: rgba($champagne, 0.45);
+    animation: quoteDraw 1.2s $ease-luxury both;
+    pointer-events: none;
+  }
+
+  .stars {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 1rem;
+    padding-left: 0.15rem;
+
+    mat-icon {
+      color: $champagne;
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  .review {
+    font-family: $font-display;
+    font-style: italic;
+    font-size: 1.15rem;
+    line-height: 1.65;
+    color: $ink;
+    margin: 0 0 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .author {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, $sage, $champagne-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 500;
+      color: $ink;
+      font-size: 0.9rem;
+    }
+
+    span {
+      font-weight: 500;
+      font-size: 0.9rem;
+      letter-spacing: 0.02em;
+      color: $ink;
+    }
+  }
+}
+
+:host-context(.dark-mode) .testimonial-card {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+
+  .review {
+    color: $dark-text;
+  }
+
+  .author {
+    .avatar {
+      background: linear-gradient(135deg, $dark-surface-3, rgba(196, 165, 116, 0.3));
+      color: $dark-text;
+    }
+
+    span {
+      color: $dark-text;
+    }
+  }
+}

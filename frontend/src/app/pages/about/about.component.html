@@ -1,8 +1,8 @@
 <section class="page-hero">
   <div class="container">
-    <h1>About Us</h1>
-    <p>Your trusted luxury nail studio in Pune.</p>
-    <p>Discover the heart behind नखRaah</p>
+    <p class="eyebrow">The House</p>
+    <h1>About</h1>
+    <p class="lede">The heart, craft, and calm behind नखRaah — a quiet luxury nail atelier in Pune.</p>
   </div>
 </section>
 
@@ -14,11 +14,86 @@
           subtitle="Our Story"
           title="A Bond of Beauty & Vision"
           [center]="false"
-          description="नखRaah was born from late-night conversations between two cousins who shared a dream — to create a sanctuary where beauty meets artistry. What began as experimenting with nail art at home has evolved into a premium studio loved by hundreds of clients across Pune."
+          description="नखRaah was born from late-night practice and a clear dream — to create a sanctuary where beauty meets artistry. What began as experimenting with nail art at home has evolved into a quiet luxury atelier loved across Pune."
+        />
+        <p class="story-extra">
+          We built नखRaah for clients who want more than a quick polish: a considered experience, impeccable hygiene,
+          and designs that feel editorial rather than ordinary. Today, the studio is a place for bridal couture,
+          everyday gel, chrome light, and bespoke artistry — always paced with care.
+        </p>
+      </div>
+      <div class="story-media" appScrollReveal="fade-left" [delay]="200">
+        <app-ambient-video
+          src="/assets/videos/atelier.mp4"
+          poster="/assets/images/hero/hero-bg.jpg"
+          caption="Atelier film"
+          [portrait]="true"
         />
       </div>
-      <div class="story-image" appScrollReveal="fade-left" [delay]="200">
-        <img src="assets/images/logo.png" alt="Our Story" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<!-- Journey timeline -->
+<section class="section journey-section">
+  <div class="journey-atmosphere" aria-hidden="true"></div>
+  <div class="container">
+    <div class="journey-intro" appScrollReveal="fade-up">
+      <p class="journey-eyebrow">The Path</p>
+      <h2 class="journey-heading">
+        <span class="brand-hindi">नख</span><span class="brand-latin">Raah</span><span class="journey-rest">’s journey</span>
+      </h2>
+      <div class="journey-title-line" aria-hidden="true"></div>
+      <p class="journey-lede">
+        A quiet timeline from the first ideas to the atelier you step into today.
+      </p>
+    </div>
+
+    <ol class="journey-rail">
+      @for (step of journey; track step.year; let i = $index) {
+        <li class="journey-stop" appScrollReveal="fade-up" [delay]="i * 120">
+          <span class="journey-index">0{{ i + 1 }}</span>
+          <div class="journey-year-wrap">
+            <span class="journey-year">{{ step.year }}</span>
+          </div>
+          <div class="journey-node" aria-hidden="true">
+            <span class="journey-ring"></span>
+            <span class="journey-core"></span>
+          </div>
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.text }}</p>
+        </li>
+      }
+    </ol>
+  </div>
+</section>
+
+<!-- Founder — editorial split -->
+<section class="section founder-section">
+  <div class="container">
+    <div class="founder-layout">
+      <div class="founder-portrait" appScrollReveal="fade-right">
+        <div class="portrait-wash" aria-hidden="true"></div>
+        <div class="portrait-bracket" aria-hidden="true"></div>
+        <figure class="portrait-photo">
+          <img
+            [src]="founder.image"
+            [alt]="founder.name"
+            loading="lazy"
+          />
+        </figure>
+      </div>
+
+      <div class="founder-copy" appScrollReveal="fade-left" [delay]="120">
+        <p class="founder-eyebrow">Meet the artist</p>
+        <h2 class="founder-name">{{ founder.name }}</h2>
+        <p class="founder-role">
+          The Hands Behind <span class="brand-hindi">नख</span><span class="brand-latin">Raah</span>
+        </p>
+        <span class="founder-rule" aria-hidden="true"></span>
+        @for (para of founder.paragraphs; track $index) {
+          <p class="founder-text">{{ para }}</p>
+        }
       </div>
     </div>
   </div>
@@ -26,39 +101,31 @@
 
 <section class="section section-band mission-section">
   <div class="container">
+    <app-section-title
+      subtitle="Purpose"
+      description="Beauty should feel calm, personal, and lasting. These are the principles that guide every appointment."
+    >
+      <span sectionTitle>
+        Why <span class="brand-hindi">नख</span><span class="brand-latin">Raah</span> exists
+      </span>
+    </app-section-title>
     <div class="mission-grid">
       <div class="mission-card floating-card" appScrollReveal="fade-up">
         <mat-icon>flag</mat-icon>
         <h2>Our Mission</h2>
-        <p>To deliver exceptional nail artistry that makes every client feel confident, pampered, and uniquely beautiful.</p>
+        <p>
+          To deliver exceptional nail artistry that makes every client feel confident, pampered, and uniquely beautiful —
+          with premium products, sterilised tools, and a welcome that never feels transactional.
+        </p>
       </div>
       <div class="mission-card floating-card" appScrollReveal="fade-up" [delay]="150">
         <mat-icon>visibility</mat-icon>
         <h2>Our Vision</h2>
-        <p>To be Pune's most trusted nail studio — where creativity, hygiene, and luxury come together in every appointment.</p>
+        <p>
+          To be Pune’s most trusted nail atelier — where creativity, hygiene, and quiet luxury come together in every
+          appointment, and clients return because the experience feels as refined as the finish.
+        </p>
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-    <app-section-title
-      subtitle="The Team"
-      title="Meet the Cousins"
-      description="The passionate duo behind every design at नखRaah."
-    />
-    <div class="team-grid">
-      @for (member of team; track member.name; let i = $index) {
-        <div class="team-card floating-card" appScrollReveal="fade-up" [delay]="i * 150">
-          <div class="team-image">
-            <img [src]="member.image" [alt]="member.name" loading="lazy" />
-          </div>
-          <h3>{{ member.name }}</h3>
-          <span class="role">{{ member.role }}</span>
-          <p>{{ member.bio }}</p>
-        </div>
-      }
     </div>
   </div>
 </section>
@@ -68,6 +135,7 @@
     <app-section-title
       subtitle="Philosophy"
       title="What We Believe"
+      description="Three quiet commitments that shape how we work, welcome, and finish every set."
     />
     <div class="philosophy-grid">
       @for (item of philosophy; track item.title; let i = $index) {
@@ -81,12 +149,3 @@
   </div>
 </section>
 
-<section class="section counter-section">
-  <div class="container">
-    <div class="counter-card" appScrollReveal="fade-up">
-      <div class="counter-number">{{ clientCount() }}+</div>
-      <h2>Happy Clients & Counting</h2>
-      <p>Trusted by nail art lovers across Pune</p>
-    </div>
-  </div>
-</section>

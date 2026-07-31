@@ -5,12 +5,47 @@
 .container { @include container; }
 .section { @include section-padding; }
 
+.craft-block {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(1.5rem, 3.5vw, 3rem);
+  align-items: center;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.craft-media {
+  position: relative;
+  width: min(100%, 420px);
+  margin: 0 auto;
+  aspect-ratio: 3 / 4;
+  border-radius: $radius-xl;
+  overflow: hidden;
+  box-shadow: $shadow-medium;
+  border: 1px solid rgba($champagne, 0.22);
+
+  app-ambient-video {
+    position: absolute;
+    inset: 0;
+  }
+}
+
+.craft-extra {
+  margin: 0;
+  max-width: 520px;
+  color: $text-light;
+  font-weight: 300;
+  line-height: 1.75;
+}
+
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
   justify-content: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .filter-btn {
@@ -299,6 +334,10 @@
 }
 
 :host-context(.dark-mode) {
+  .craft-extra {
+    color: $dark-text-muted;
+  }
+
   .filter-btn {
     background: $dark-surface-2;
     color: $dark-text-muted;

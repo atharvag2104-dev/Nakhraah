@@ -1,7 +1,8 @@
 <section class="page-hero">
   <div class="container">
-    <h1>Our Services</h1>
-    <p>Indulge in premium treatments crafted for perfection</p>
+    <p class="eyebrow">Menu</p>
+    <h1>Services</h1>
+    <p class="lede">Gel, bridal, chrome, extensions, and bespoke artistry — composed with quiet luxury in mind.</p>
   </div>
 </section>
 
@@ -10,16 +11,28 @@
     <app-section-title
       subtitle="Treatments"
       title="Luxury Nail Services"
-      description="Each service is performed with premium products, meticulous care, and artistic flair."
+      description="Each service is performed with premium products, meticulous care, and artistic flair. Browse the menu, then book the set that matches your moment — or tell us what you imagine and we’ll design it with you."
     />
-    @if (loading()) {
-      <app-loading-spinner />
-    } @else {
-      <div class="services-grid">
-        @for (service of services(); track service.id; let i = $index) {
-          <app-service-card [service]="service" appScrollReveal="fade-up" [delay]="(i % 3) * 100" />
-        }
-      </div>
-    }
+    <p class="services-lede" appScrollReveal="fade-up">
+      Appointments are paced for precision. We recommend arriving with reference photos if you have them,
+      and sharing your week ahead so we can balance beauty with wearability.
+    </p>
+    <div class="services-grid">
+      @for (service of services(); track service.id; let i = $index) {
+        <app-service-card [service]="service" appScrollReveal="fade-up" [delay]="(i % 3) * 100" />
+      }
+    </div>
+  </div>
+</section>
+
+<section class="section section-band services-note">
+  <div class="container" appScrollReveal="fade-up">
+    <h2>Not sure where to begin?</h2>
+    <p>
+      Start with a classic gel for everyday polish, book bridal nails for your special week, or choose luxury nail art
+      when you want couture detail. Message us on WhatsApp with your date and inspiration — we’ll guide the right service,
+      timing, and aftercare for your lifestyle.
+    </p>
+    <a routerLink="/contact" class="btn-primary">Book a consultation</a>
   </div>
 </section>

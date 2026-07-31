@@ -5,8 +5,47 @@
 .container { @include container; }
 .section { @include section-padding; }
 
+.services-lede {
+  max-width: 640px;
+  margin: -0.5rem auto 1.75rem;
+  text-align: center;
+  color: $text-light;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
 .services-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 2rem;
+  gap: 1.35rem;
+}
+
+.services-note {
+  text-align: center;
+
+  h2 {
+    font-family: $font-display;
+    font-size: clamp(1.75rem, 3vw, 2.35rem);
+    font-weight: 500;
+    margin: 0 0 0.85rem;
+  }
+
+  p {
+    max-width: 620px;
+    margin: 0 auto 1.5rem;
+    color: $text-light;
+    line-height: 1.75;
+    font-weight: 300;
+  }
+}
+
+:host-context(.dark-mode) {
+  .services-lede,
+  .services-note p {
+    color: $dark-text-muted;
+  }
+
+  .services-note h2 {
+    color: $dark-text;
+  }
 }

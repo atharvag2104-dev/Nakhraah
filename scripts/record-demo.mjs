@@ -87,34 +87,6 @@ async function main() {
 
   await visitPage(page, '/contact');
 
-  // ── Admin login UI ──
-  await visitPage(page, '/admin/login', { scroll: false });
-  await page.fill('input[type="email"]', 'admin@nakhraah.com');
-  await page.fill('input[type="password"]', 'Admin@123');
-  await pause(page, 1200);
-  await safeClick(page, 'button[type="submit"]');
-  await pause(page, 3500);
-
-  // Admin panel (if backend is running)
-  const adminRoutes = [
-    '/admin/dashboard',
-    '/admin/services',
-    '/admin/gallery',
-    '/admin/appointments',
-    '/admin/testimonials',
-  ];
-
-  for (const route of adminRoutes) {
-    await page.goto(`${BASE_URL}${route}`, { waitUntil: 'domcontentloaded', timeout: 60000 });
-    await pause(page, 2000);
-    if (page.url().includes('/admin/login')) {
-      console.log('Admin login required — backend may be offline. Skipping admin pages.');
-      break;
-    }
-    await scrollPage(page);
-    await pause(page, 1000);
-  }
-
   // End on home
   await visitPage(page, '/', { scroll: false });
   await pause(page, 2500);

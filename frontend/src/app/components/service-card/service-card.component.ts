@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, signal } 
 import { RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { Service } from '../../models';
-import { ApiService } from '../../services/api.service';
 import { CurrencyInrPipe } from '../../pipes/truncate.pipe';
 import { PLACEHOLDER_NAIL } from '../../core/constants/static-images';
+import { resolveServiceImage } from '../../core/utils/image-url';
 
 @Component({
   selector: 'app-service-card',
@@ -49,14 +49,12 @@ export class ServiceCardComponent implements OnInit, OnChanges {
   @Input({ required: true }) service!: Service;
   imageSrc = signal('');
 
-  constructor(public api: ApiService) {}
-
   ngOnChanges(): void {
-    this.imageSrc.set(this.api.resolveServiceImage(this.service.slug, this.service.image_url));
+    this.imageSrc.set(resolveServiceImage(this.service.slug, this.service.image_url));
   }
 
   ngOnInit(): void {
-    this.imageSrc.set(this.api.resolveServiceImage(this.service.slug, this.service.image_url));
+    this.imageSrc.set(resolveServiceImage(this.service.slug, this.service.image_url));
   }
 
   onImageError(): void {

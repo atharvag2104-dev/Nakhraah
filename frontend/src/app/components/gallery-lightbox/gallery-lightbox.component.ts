@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { GalleryItem } from '../../models';
-import { ApiService } from '../../services/api.service';
+import { resolveImageUrl } from '../../core/utils/image-url';
 
 @Component({
   selector: 'app-gallery-lightbox',
@@ -14,7 +14,7 @@ import { ApiService } from '../../services/api.service';
           <button class="close-btn" (click)="close.emit()" aria-label="Close">
             <mat-icon>close</mat-icon>
           </button>
-          <img [src]="api.resolveImageUrl(item.image_url)" [alt]="item.alt_text || item.title" />
+          <img [src]="resolveImageUrl(item.image_url)" [alt]="item.alt_text || item.title" />
           <div class="caption">
             <h3>{{ item.title }}</h3>
             <span class="category">{{ item.category }}</span>
@@ -29,5 +29,5 @@ import { ApiService } from '../../services/api.service';
 export class GalleryLightboxComponent {
   @Input() item: GalleryItem | null = null;
   @Output() close = new EventEmitter<void>();
-  constructor(public api: ApiService) {}
+  readonly resolveImageUrl = resolveImageUrl;
 }

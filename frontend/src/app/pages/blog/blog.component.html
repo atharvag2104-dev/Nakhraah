@@ -1,0 +1,65 @@
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">Journal</p>
+    <h1>Nail care</h1>
+    <p class="lede">Practical notes from the atelier — aftercare, cuticles, bridal timing, and stronger natural nails.</p>
+  </div>
+</section>
+
+<section class="section blog-page">
+  <div class="container">
+    <app-section-title
+      subtitle="Nail care"
+      title="Read before your next appointment"
+      description="Short guides for lasting gel, soft cuticles, and thoughtful bridal timing — written the way we speak in the chair."
+    />
+
+    <div class="preview-slider blog-slider" appScrollReveal="fade-up">
+      <button
+        class="slide-nav prev"
+        (click)="prev()"
+        [disabled]="page() === 0"
+        aria-label="Previous articles"
+      >
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+
+      <div class="slider-viewport">
+        <div
+          class="slider-track"
+          [style.transform]="'translateX(-' + page() * 100 + '%)'"
+        >
+          @for (chunk of pages(); track $index) {
+            <div class="slide-page blog-slide-page">
+              @for (post of chunk; track post.id) {
+                <app-blog-card [post]="post" />
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <button
+        class="slide-nav next"
+        (click)="next()"
+        [disabled]="page() >= maxPage()"
+        aria-label="Next articles"
+      >
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
+
+    @if (pages().length > 1) {
+      <div class="slider-dots">
+        @for (chunk of pages(); track $index) {
+          <button
+            class="dot"
+            [class.active]="page() === $index"
+            (click)="goTo($index)"
+            [attr.aria-label]="'Go to articles slide ' + ($index + 1)"
+          ></button>
+        }
+      </div>
+    }
+  </div>
+</section>

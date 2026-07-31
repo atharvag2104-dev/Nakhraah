@@ -8,7 +8,7 @@
         <span class="brand-name">
           <span class="brand-hindi">नख</span><span class="brand-latin">Raah</span>
         </span>
-        <span class="brand-tagline">Nail Studio</span>
+        <span class="brand-tagline">Nail Atelier</span>
       </span>
     </a>
 
@@ -27,7 +27,6 @@
       <button class="theme-toggle" (click)="theme.toggle()" aria-label="Toggle dark mode">
         <mat-icon>{{ theme.isDarkMode() ? 'light_mode' : 'dark_mode' }}</mat-icon>
       </button>
-      <a routerLink="/contact" class="book-btn" (click)="closeMenu()">Book Now</a>
       <button class="menu-toggle" (click)="toggleMenu()" aria-label="Toggle menu">
         <mat-icon>{{ menuOpen() ? 'close' : 'menu' }}</mat-icon>
       </button>
@@ -44,7 +43,6 @@
           (click)="closeMenu()"
         >{{ link.label }}</a>
       }
-      <a routerLink="/contact" class="mobile-book" (click)="closeMenu()">Book Appointment</a>
     </div>
   }
 </header>

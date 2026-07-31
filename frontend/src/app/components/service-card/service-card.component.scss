@@ -5,84 +5,97 @@
 .service-card {
   border-radius: $radius-lg;
   overflow: hidden;
-  background: $white;
-  border: 1px solid rgba(226, 249, 209, 0.35);
-  box-shadow: 0 4px 24px rgba(51, 51, 51, 0.06);
-  transition: transform $transition, box-shadow $transition;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba($sage, 0.45);
+  box-shadow: $shadow-soft;
+  backdrop-filter: blur(12px);
+  transition:
+    transform 0.55s $ease-luxury,
+    box-shadow 0.55s $ease-luxury,
+    border-color 0.55s $ease-luxury;
   height: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
 
   &:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 50px rgba(240, 138, 155, 0.18);
+    transform: translateY(-6px);
+    box-shadow: 0 22px 48px rgba(44, 42, 38, 0.1);
+    border-color: rgba($champagne, 0.35);
+
+    .image-wrap img {
+      transform: scale(1.04);
+    }
+
+    .content .link {
+      gap: 0.55rem;
+      color: $ink;
+    }
   }
 
   .image-wrap {
     @include image-zoom;
     position: relative;
-    height: 240px;
+    height: 230px;
     overflow: hidden;
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.7s ease;
+      transition: transform 1.2s $ease-luxury;
     }
 
     .image-shimmer {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.35) 50%, transparent 60%);
-      transform: translateX(-100%);
-      transition: transform 0.6s ease;
-      pointer-events: none;
+      display: none;
     }
 
     .overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(51, 51, 51, 0.55) 0%, transparent 55%);
+      background: linear-gradient(to top, rgba(44, 42, 38, 0.4) 0%, transparent 55%);
       display: flex;
       align-items: flex-end;
       justify-content: center;
       padding-bottom: 1.25rem;
       opacity: 0;
-      transition: opacity $transition;
+      transition: opacity 0.45s $ease-luxury;
     }
 
-    &:hover {
-      img { transform: scale(1.06); }
-      .image-shimmer { transform: translateX(100%); }
-      .overlay { opacity: 1; }
+    &:hover .overlay {
+      opacity: 1;
     }
   }
 
   .book-btn {
     @include btn-primary;
     padding: 0.65rem 1.75rem;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
   }
 
   .content {
-    padding: 1.75rem;
+    padding: 1.65rem 1.65rem 1.85rem;
     background: linear-gradient(
       180deg,
-      rgba($white, 0.98) 0%,
-      rgba($primary-light, 0.35) 55%,
-      rgba($primary, 0.18) 100%
+      rgba($white, 0.92) 0%,
+      rgba($sage-muted, 0.35) 100%
     );
     flex: 1;
     display: flex;
     flex-direction: column;
+    position: relative;
 
     h3 {
       font-family: $font-display;
-      font-size: 1.4rem;
+      font-size: 1.55rem;
+      font-weight: 500;
       margin: 0 0 0.75rem;
-      color: $text;
+      color: $ink;
       letter-spacing: -0.01em;
+    }
+
+    .sparkle {
+      display: none;
     }
 
     .meta {
@@ -91,26 +104,27 @@
       gap: 1rem;
       margin-bottom: 0.875rem;
       padding-bottom: 0.875rem;
-      border-bottom: 1px dashed rgba(240, 138, 155, 0.35);
+      border-bottom: 1px solid rgba($champagne, 0.18);
 
       .price {
-        font-weight: 600;
-        color: $accent;
-        font-size: 1.15rem;
+        font-weight: 500;
+        color: $champagne-deep;
+        font-size: 1.05rem;
+        letter-spacing: 0.02em;
       }
 
       .duration {
         display: flex;
         align-items: center;
         gap: 0.25rem;
-        font-size: 0.85rem;
+        font-size: 0.82rem;
         color: $text-light;
 
         mat-icon {
           font-size: 16px;
           width: 16px;
           height: 16px;
-          color: $accent;
+          color: $champagne;
         }
       }
     }
@@ -127,14 +141,19 @@
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
-      color: $accent;
+      color: $champagne-deep;
       font-weight: 500;
-      font-size: 0.9rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       text-decoration: none;
-      transition: gap $transition, color $transition;
+      transition: gap 0.45s $ease-luxury, color 0.45s $ease-luxury;
 
-      mat-icon { font-size: 18px; width: 18px; height: 18px; }
-      &:hover { gap: 0.65rem; color: #e07a8d; }
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+      }
     }
   }
 }
@@ -146,19 +165,25 @@
 
   &:hover {
     box-shadow: $dark-shadow-hover;
-    border-color: rgba(240, 138, 155, 0.3);
+    border-color: rgba($champagne, 0.4);
   }
 
   .content {
     background: linear-gradient(180deg, $dark-surface-2 0%, $dark-surface 100%);
 
-    h3 { color: $dark-text; }
-    p { color: $dark-text-muted; }
+    h3 {
+      color: $dark-text;
+    }
+    p {
+      color: $dark-text-muted;
+    }
 
     .meta {
       border-bottom-color: $dark-border;
 
-      .duration { color: $dark-text-muted; }
+      .duration {
+        color: $dark-text-muted;
+      }
     }
   }
 }

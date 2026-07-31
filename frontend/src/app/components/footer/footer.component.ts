@@ -19,6 +19,7 @@ export class FooterComponent {
     { path: '/about', label: 'About Us' },
     { path: '/services', label: 'Services' },
     { path: '/gallery', label: 'Gallery' },
+    { path: '/blog', label: 'Blog' },
     { path: '/contact', label: 'Contact' },
   ];
 }

@@ -1,20 +1,25 @@
 <section class="page-hero">
   <div class="container">
-    <h1>Contact Us</h1>
-    <p>We'd love to hear from you</p>
+    <p class="eyebrow">Visit</p>
+    <h1>Contact</h1>
+    <p class="lede">Book a private appointment, ask about bridal sets, or visit the atelier in Pune.</p>
   </div>
 </section>
 
 <section class="section">
   <div class="container">
     <div class="contact-grid">
-      <div class="contact-info" appScrollReveal="fade-right">
+      <div class="contact-info">
         <app-section-title
           subtitle="Get in Touch"
           title="Visit Our Studio"
           [center]="false"
+          description="Come for a calm chair and leave with hands that feel quietly expensive. Reach us by phone, WhatsApp, or the form — we’ll confirm your preferred date and service."
         />
-
+        <p class="contact-note">
+          For bridal or group bookings, message us a few weeks ahead so we can reserve the right amount of time
+          for fittings, trials, and the final set.
+        </p>
         <div class="info-cards">
           <div class="info-card">
             <mat-icon>location_on</mat-icon>
@@ -42,13 +47,13 @@
         </div>
 
         <div class="social-buttons">
-          <a [href]="'https://wa.me/' + env.whatsappNumber" target="_blank" class="social-btn whatsapp">
+          <a [href]="'https://wa.me/' + env.whatsappNumber" target="_blank" rel="noopener" class="social-btn whatsapp">
             <mat-icon>chat</mat-icon> WhatsApp
           </a>
-          <a [href]="env.instagramUrl" target="_blank" class="social-btn instagram">
+          <a [href]="env.instagramUrl" target="_blank" rel="noopener" class="social-btn instagram">
             <mat-icon>photo_camera</mat-icon> Instagram
           </a>
-          <a [href]="env.facebookUrl" target="_blank" class="social-btn facebook">
+          <a [href]="env.facebookUrl" target="_blank" rel="noopener" class="social-btn facebook">
             <mat-icon>facebook</mat-icon> Facebook
           </a>
         </div>
@@ -67,80 +72,187 @@
         </div>
       </div>
 
-      <div class="contact-form-wrap" appScrollReveal="fade-left" [delay]="200">
+      <div class="contact-form-wrap">
         <div class="form-card">
+          <p class="form-eyebrow">WhatsApp booking</p>
           <h2>Book an Appointment</h2>
-          <p>Fill in the details and we'll get back to you shortly.</p>
+          <p class="form-lede">
+            Fill in your details — WhatsApp opens with your request. Tap Send to confirm.
+          </p>
 
-          @if (submitted()) {
-            <div class="success-message">
-              <mat-icon>check_circle</mat-icon>
-              <p>Thank you! Your appointment request has been submitted.</p>
+          @if (formNotice()) {
+            <div class="form-notice" role="alert">
+              <mat-icon>info</mat-icon>
+              <p>{{ formNotice() }}</p>
+              <button type="button" class="notice-dismiss" (click)="dismissNotice()" aria-label="Dismiss">
+                <mat-icon>close</mat-icon>
+              </button>
             </div>
           }
 
-          <form [formGroup]="form" (ngSubmit)="onSubmit()">
-            <mat-form-field appearance="outline">
-              <mat-label>Full Name</mat-label>
-              <input matInput formControlName="name" />
-              @if (getError('name')) {
-                <mat-error>{{ getError('name') }}</mat-error>
-              }
-            </mat-form-field>
+          <form [formGroup]="form" (ngSubmit)="bookOnWhatsApp($event)" class="booking-form">
+            <label class="field" [class.invalid]="showInvalid('name')">
+              <span class="field-label">Full name *</span>
+              <input
+                type="text"
+                formControlName="name"
+                autocomplete="name"
+                placeholder="Your name"
+                inputmode="text"
+                (input)="onNameInput($event)"
+              />
+            </label>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Phone</mat-label>
-              <input matInput formControlName="phone" />
-              @if (getError('phone')) {
-                <mat-error>{{ getError('phone') }}</mat-error>
-              }
-            </mat-form-field>
+            <label class="field" [class.invalid]="showInvalid('phone')">
+              <span class="field-label">Phone *</span>
+              <input
+                type="tel"
+                formControlName="phone"
+                autocomplete="tel"
+                placeholder="10-digit mobile"
+                maxlength="10"
+                inputmode="numeric"
+                (input)="onPhoneInput($event)"
+              />
+            </label>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Email</mat-label>
-              <input matInput type="email" formControlName="email" />
-              @if (getError('email')) {
-                <mat-error>{{ getError('email') }}</mat-error>
-              }
-            </mat-form-field>
+            <div class="field">
+              <span class="field-label">Service</span>
+              <div class="service-field" [class.open]="servicePickerOpen()">
+                <button
+                  type="button"
+                  class="service-trigger"
+                  (click)="toggleServicePicker($event)"
+                  [attr.aria-expanded]="servicePickerOpen()"
+                  aria-haspopup="listbox"
+                >
+                  <span [class.placeholder]="!selectedServiceLabel()">
+                    {{ selectedServiceLabel() || 'Select a service' }}
+                  </span>
+                  <mat-icon aria-hidden="true">expand_more</mat-icon>
+                </button>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Service</mat-label>
-              <mat-select formControlName="service_id">
-                <mat-option value="">Select a service</mat-option>
-                @for (s of services(); track s.id) {
-                  <mat-option [value]="s.id">{{ s.name }}</mat-option>
+                @if (servicePickerOpen()) {
+                  <div
+                    class="service-panel"
+                    role="listbox"
+                    aria-label="Choose a service"
+                    data-lenis-prevent
+                    (click)="$event.stopPropagation()"
+                    (wheel)="onServicePanelWheel($event)"
+                  >
+                    <button
+                      type="button"
+                      class="service-opt"
+                      role="option"
+                      [class.active]="!form.get('service_id')?.value"
+                      (click)="pickService('')"
+                    >Select a service</button>
+                    @for (s of services(); track s.id) {
+                      <button
+                        type="button"
+                        class="service-opt"
+                        role="option"
+                        [class.active]="isServiceSelected(s.id)"
+                        (click)="pickService(s.id)"
+                      >{{ s.name }}</button>
+                    }
+                  </div>
                 }
-              </mat-select>
-            </mat-form-field>
-
-            <div class="form-row">
-              <mat-form-field appearance="outline">
-                <mat-label>Preferred Date</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="preferred_date" [min]="today" />
-                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                @if (getError('preferred_date')) {
-                  <mat-error>{{ getError('preferred_date') }}</mat-error>
-                }
-              </mat-form-field>
-
-              <mat-form-field appearance="outline">
-                <mat-label>Preferred Time</mat-label>
-                <input matInput type="time" formControlName="preferred_time" />
-                @if (getError('preferred_time')) {
-                  <mat-error>{{ getError('preferred_time') }}</mat-error>
-                }
-              </mat-form-field>
+              </div>
             </div>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Message (optional)</mat-label>
-              <textarea matInput formControlName="message" rows="3"></textarea>
-            </mat-form-field>
+            <div class="form-row">
+              <div class="field" [class.invalid]="showInvalid('preferred_date')">
+                <span class="field-label">Preferred date *</span>
+                <div class="date-field">
+                  <input
+                    [matDatepicker]="picker"
+                    formControlName="preferred_date"
+                    [min]="today"
+                    placeholder="Select a date"
+                    readonly
+                    (click)="picker.open()"
+                  />
+                  <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker panelClass="nakhraah-datepicker"></mat-datepicker>
+                </div>
+              </div>
 
-            <button mat-flat-button type="submit" class="submit-btn" [disabled]="submitting()">
-              {{ submitting() ? 'Submitting...' : 'Submit Appointment' }}
+              <div class="field" [class.invalid]="showInvalid('preferred_time')">
+                <span class="field-label">Preferred time *</span>
+                <div class="time-field" [class.open]="timePickerOpen()">
+                  <button
+                    type="button"
+                    class="time-trigger"
+                    (click)="toggleTimePicker($event)"
+                    [attr.aria-expanded]="timePickerOpen()"
+                    aria-haspopup="dialog"
+                  >
+                    <span [class.placeholder]="!form.get('preferred_time')?.value">
+                      {{ form.get('preferred_time')?.value || '-- : -- --' }}
+                    </span>
+                    <mat-icon aria-hidden="true">schedule</mat-icon>
+                  </button>
+
+                  @if (timePickerOpen()) {
+                    <div
+                      class="time-panel"
+                      role="dialog"
+                      aria-label="Choose preferred time"
+                      data-lenis-prevent
+                      (click)="$event.stopPropagation()"
+                      (wheel)="onTimePanelWheel($event)"
+                    >
+                      <div class="time-cols">
+                        <div class="time-col" aria-label="Hour" data-lenis-prevent>
+                          @for (h of hours; track h) {
+                            <button
+                              type="button"
+                              class="time-opt"
+                              [class.active]="selectedHour() === h"
+                              (click)="pickHour(h)"
+                            >{{ h }}</button>
+                          }
+                        </div>
+                        <div class="time-col" aria-label="Minute" data-lenis-prevent>
+                          @for (m of minutes; track m) {
+                            <button
+                              type="button"
+                              class="time-opt"
+                              [class.active]="selectedMinute() === m"
+                              (click)="pickMinute(m)"
+                            >{{ m }}</button>
+                          }
+                        </div>
+                        <div class="time-col meridian" aria-label="AM or PM" data-lenis-prevent>
+                          @for (p of periods; track p) {
+                            <button
+                              type="button"
+                              class="time-opt"
+                              [class.active]="selectedPeriod() === p"
+                              (click)="pickPeriod(p)"
+                            >{{ p }}</button>
+                          }
+                        </div>
+                      </div>
+                      <div class="time-panel-actions">
+                        <button type="button" class="time-clear" (click)="clearTime()">Clear</button>
+                        <button type="button" class="time-done" (click)="closeTimePicker()">Done</button>
+                      </div>
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+
+            <label class="field">
+              <span class="field-label">Message</span>
+              <textarea formControlName="message" rows="3" placeholder="Anything we should know? (optional)"></textarea>
+            </label>
+
+            <button type="button" class="submit-btn" [disabled]="submitting()" (click)="bookOnWhatsApp($event)">
+              {{ submitting() ? 'Opening WhatsApp…' : 'Book on WhatsApp' }}
             </button>
           </form>
         </div>

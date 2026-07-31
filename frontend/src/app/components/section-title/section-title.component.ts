@@ -8,11 +8,15 @@ import { CommonModule } from '@angular/common';
   template: `
     <div class="section-title" [class.center]="center">
       @if (subtitle) {
-        <span class="subtitle">
-          <span class="dot"></span>{{ subtitle }}<span class="dot"></span>
-        </span>
+        <span class="subtitle">{{ subtitle }}</span>
       }
-      <h2 class="title">{{ title }}</h2>
+      <h2 class="title">
+        @if (title) {
+          {{ title }}
+        } @else {
+          <ng-content select="[sectionTitle]"></ng-content>
+        }
+      </h2>
       <div class="title-line" [class.center]="center"></div>
       @if (description) {
         <p class="description">{{ description }}</p>
@@ -23,55 +27,68 @@ import { CommonModule } from '@angular/common';
     @use '../../../styles/variables' as *;
 
     .section-title {
-      margin-bottom: 3rem;
+      margin-bottom: 1.85rem;
       &.center { text-align: center; }
     }
     .subtitle {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 0.8rem;
-      font-weight: 600;
+      display: inline-block;
+      font-family: $font-primary;
+      font-size: 0.7rem;
+      font-weight: 500;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: $accent;
-      margin-bottom: 0.75rem;
-
-      .dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: $accent;
-        opacity: 0.5;
-      }
+      color: $champagne-deep;
+      margin-bottom: 0.5rem;
     }
     .title {
       font-family: $font-display;
-      font-size: clamp(2rem, 4vw, 2.75rem);
-      font-weight: 600;
+      font-size: clamp(1.85rem, 3.6vw, 2.65rem);
+      font-weight: 500;
       color: $text;
-      margin: 0 0 0.75rem;
-      line-height: 1.2;
+      margin: 0 0 0.55rem;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
     }
     .title-line {
-      width: 60px;
-      height: 3px;
-      background: linear-gradient(90deg, $accent, $secondary);
-      border-radius: 2px;
-      margin-bottom: 1rem;
-      &.center { margin-left: auto; margin-right: auto; }
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(90deg, $champagne, transparent);
+      margin-bottom: 0.7rem;
+      &.center { margin-left: auto; margin-right: auto; background: linear-gradient(90deg, transparent, $champagne, transparent); width: 64px; }
     }
     .description {
-      font-size: 1.05rem;
+      font-size: 0.98rem;
+      font-weight: 300;
       color: $text-light;
-      max-width: 600px;
-      line-height: 1.7;
+      max-width: 520px;
+      line-height: 1.65;
       margin: 0;
       .center & { margin: 0 auto; }
     }
 
-    :host-context(.dark-mode) .title { color: #eef1f6; }
-    :host-context(.dark-mode) .description { color: #949eb2; }
+    :host ::ng-deep .brand-hindi,
+    :host ::ng-deep .brand-nakh {
+      font-family: $font-marathi, $font-display;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: $ink;
+    }
+
+    :host ::ng-deep .brand-latin,
+    :host ::ng-deep .brand-raah {
+      font-family: $font-display;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: $champagne-deep;
+    }
+
+    :host-context(.dark-mode) .title { color: #f2efe8; }
+    :host-context(.dark-mode) .description { color: #a39e94; }
+    :host-context(.dark-mode) .subtitle { color: #E8D5B5; }
+    :host-context(.dark-mode) ::ng-deep .brand-hindi,
+    :host-context(.dark-mode) ::ng-deep .brand-nakh { color: #f2efe8; }
+    :host-context(.dark-mode) ::ng-deep .brand-latin,
+    :host-context(.dark-mode) ::ng-deep .brand-raah { color: #E8D5B5; }
   `],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

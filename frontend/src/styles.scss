@@ -2,6 +2,7 @@
 @use './styles/mixins' as *;
 @use './styles/global';
 @use './styles/dark-theme';
+@use './styles/motion';
 
 *,
 *::before,
@@ -13,16 +14,61 @@ html {
   scroll-behavior: smooth;
 }
 
+html.has-smooth-scroll {
+  scroll-behavior: auto;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
 body {
   margin: 0;
   font-family: $font-primary;
   font-size: 16px;
-  line-height: 1.65;
+  line-height: 1.7;
   color: $text;
   background-color: $background;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color $transition, color $transition;
+  transition: background-color $transition-fast, color $transition-fast;
+}
+
+:root {
+  --offer-banner-height: 0px;
+}
+
+html.has-top-offer {
+  --offer-banner-height: 2.65rem;
+}
+
+html.has-top-offer .navbar,
+body.has-top-offer .navbar {
+  top: var(--offer-banner-height);
+}
+
+html.has-top-offer .scroll-progress,
+body.has-top-offer .scroll-progress {
+  top: var(--offer-banner-height);
+}
+
+@media (max-width: 640px) {
+  html.has-top-offer {
+    --offer-banner-height: 4.25rem;
+  }
 }
 
 .main-content {
@@ -30,7 +76,7 @@ body {
 }
 
 ::selection {
-  background: rgba($accent, 0.25);
+  background: rgba($champagne, 0.28);
   color: $text;
 }
 
@@ -43,14 +89,20 @@ body.dark-mode {
   }
 
   .navbar.scrolled {
-    background: rgba(15, 17, 23, 0.96) !important;
+    background: rgba(20, 21, 18, 0.94) !important;
   }
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: $font-primary;
-  font-weight: 600;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-display;
+  font-weight: 500;
   letter-spacing: -0.02em;
+  line-height: 1.15;
 }
 
 img {
@@ -62,32 +114,6 @@ a {
   color: inherit;
 }
 
-.reveal {
-  opacity: 0;
-  transition: opacity 0.8s ease, transform 0.8s ease;
-
-  &.revealed {
-    opacity: 1;
-    transform: none !important;
-  }
-}
-
-.reveal-fade-up {
-  transform: translateY(40px);
-}
-
-.reveal-fade-down {
-  transform: translateY(-40px);
-}
-
-.reveal-fade-left {
-  transform: translateX(-40px);
-}
-
-.reveal-fade-right {
-  transform: translateX(40px);
-}
-
 .mat-mdc-form-field {
   width: 100%;
 }
@@ -95,8 +121,200 @@ a {
 :root {
   --mdc-theme-primary: #{$accent};
   --mdc-theme-secondary: #{$secondary};
+  --luxury-ease: #{$ease-luxury};
+  --sage: #{$sage};
+  --ivory: #{$ivory};
+  --champagne: #{$champagne};
 }
 
 .mat-mdc-snack-bar-container {
   --mdc-snackbar-container-color: #{$text};
 }
+
+/* Luxury datepicker panel */
+.nakhraah-datepicker.mat-datepicker-content,
+.mat-datepicker-content.nakhraah-datepicker {
+  border-radius: 16px !important;
+  box-shadow: 0 20px 50px rgba(44, 42, 38, 0.14) !important;
+  border: 1px solid rgba(196, 165, 116, 0.35);
+  background: #fbf9f4 !important;
+  overflow: hidden;
+  position: relative;
+  z-index: 1000;
+}
+
+.cdk-overlay-container {
+  z-index: 2000 !important;
+}
+
+.cdk-overlay-pane.mat-datepicker-popup {
+  z-index: 2001 !important;
+}
+
+.nakhraah-datepicker .mat-calendar {
+  font-family: 'Outfit', sans-serif;
+  background: #fbf9f4;
+  width: 296px;
+}
+
+.nakhraah-datepicker .mat-calendar-header {
+  padding: 0.65rem 0.5rem 0.25rem;
+}
+
+.nakhraah-datepicker .mat-calendar-controls {
+  margin: 0 0 0.35rem;
+}
+
+.nakhraah-datepicker .mat-calendar-period-button {
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-size: 1.15rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.02em;
+  color: #2c2a26 !important;
+}
+
+.nakhraah-datepicker .mat-calendar-arrow,
+.nakhraah-datepicker .mat-calendar-previous-button,
+.nakhraah-datepicker .mat-calendar-next-button {
+  color: #a68b5b !important;
+}
+
+.nakhraah-datepicker .mat-calendar-table-header th {
+  color: #8a847a;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.nakhraah-datepicker .mat-calendar-body-label {
+  color: #5c574f;
+  font-weight: 500;
+}
+
+.nakhraah-datepicker .mat-calendar-body-cell-content {
+  border-radius: 50% !important;
+  width: 36px !important;
+  height: 36px !important;
+  line-height: 36px !important;
+  color: #2c2a26;
+}
+
+.nakhraah-datepicker .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+  border-color: rgba(196, 165, 116, 0.7) !important;
+}
+
+.nakhraah-datepicker .mat-calendar-body-selected {
+  background-color: #c4a574 !important;
+  color: #fbf9f4 !important;
+  box-shadow: 0 4px 12px rgba(166, 139, 91, 0.35);
+}
+
+.nakhraah-datepicker .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover
+  > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected) {
+  background-color: rgba(220, 232, 215, 0.75) !important;
+}
+
+.nakhraah-datepicker .mat-calendar-body-disabled > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected) {
+  color: rgba(138, 132, 122, 0.45);
+}
+
+// Custom nail-brush pointer (DOM follower — Windows ignores SVG CSS cursors)
+html.has-luxury-cursor,
+html.has-luxury-cursor *,
+body.has-luxury-cursor,
+body.has-luxury-cursor * {
+  cursor: none !important;
+}
+
+.nail-brush {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  z-index: 2147483647 !important;
+  width: 8px;
+  height: 22px;
+  margin: 0;
+  padding: 0;
+  display: flex !important;
+  visibility: visible !important;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none !important;
+  opacity: 1 !important;
+  transform: translate3d(-100px, -100px, 0) translate(-50%, -92%) rotate(-18deg);
+  filter: drop-shadow(0 1px 3px rgba(44, 42, 38, 0.22));
+  will-change: transform;
+
+  &.painting .nail-brush__tip {
+    transform: scaleY(0.86) scaleX(1.12);
+  }
+}
+
+.nail-brush__cap {
+  width: 70%;
+  height: 10%;
+  border-radius: 2px 2px 1px 1px;
+  background: linear-gradient(180deg, #6a6660, #3a3834);
+  margin-bottom: -1px;
+}
+
+.nail-brush__handle {
+  width: 58%;
+  height: 42%;
+  border-radius: 3px 3px 2px 2px;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.28), transparent 42%, rgba(0, 0, 0, 0.28)),
+    linear-gradient(180deg, #5a574f, #2c2a26 70%, #1a1917);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.nail-brush__ferrule {
+  width: 52%;
+  height: 8%;
+  margin-top: -1%;
+  border-radius: 1px;
+  background: linear-gradient(180deg, $champagne-light, $champagne, $champagne-deep);
+  box-shadow: 0 1px 2px rgba(44, 42, 38, 0.18);
+}
+
+.nail-brush__tip {
+  width: 78%;
+  height: 40%;
+  margin-top: -1%;
+  border-radius: 40% 40% 48% 48% / 18% 18% 82% 82%;
+  background: linear-gradient(180deg, #f0e4cc, $champagne 48%, $champagne-deep);
+  box-shadow: 0 2px 4px rgba(44, 42, 38, 0.2);
+  transform-origin: top center;
+  transition: transform 0.18s ease;
+}
+
+/* Small polish drop on click */
+.nail-paint-drop {
+  position: fixed;
+  z-index: 9999;
+  width: 7px;
+  height: 9px;
+  margin: -2px 0 0 -3.5px;
+  pointer-events: none;
+  border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+  background: radial-gradient(circle at 35% 30%, #fff8, transparent 45%), var(--c, #{$champagne});
+  box-shadow: 0 1px 2px rgba(44, 42, 38, 0.2);
+  animation: nailDrop 0.65s ease forwards;
+}
+
+@keyframes nailDrop {
+  0% {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.4);
+  }
+  25% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.85);
+  }
+}
+

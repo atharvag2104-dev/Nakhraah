@@ -8,44 +8,58 @@
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3rem;
+  gap: 2.5rem;
+  align-items: start;
 
-  @media (max-width: 992px) { grid-template-columns: 1fr; }
+  @media (max-width: 992px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contact-note {
+  margin: 0 0 1.25rem;
+  color: $text-light;
+  font-weight: 300;
+  line-height: 1.7;
+  max-width: 440px;
 }
 
 .info-cards {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
-  margin: 2rem 0;
+  gap: 1rem;
+  margin: 1.75rem 0;
 }
 
 .info-card {
-  @include glass-card;
   display: flex;
   gap: 1rem;
-  padding: 1.25rem;
-  background: $white;
-  box-shadow: $shadow-soft;
-  border: 1px solid rgba($accent, 0.08);
+  padding: 1.1rem 1.2rem;
+  background: rgba($white, 0.72);
+  border: 1px solid rgba($champagne, 0.22);
+  border-radius: $radius-md;
 
   mat-icon {
-    color: $accent;
+    color: $champagne-deep;
     flex-shrink: 0;
   }
 
   h4 {
-    margin: 0 0 0.25rem;
-    font-size: 0.95rem;
+    margin: 0 0 0.2rem;
+    font-size: 0.92rem;
+    font-weight: 500;
   }
 
   p {
     margin: 0;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     color: $text-light;
     line-height: 1.5;
 
-    a { color: $accent; text-decoration: none; }
+    a {
+      color: $champagne-deep;
+      text-decoration: none;
+    }
   }
 }
 
@@ -53,111 +67,566 @@
   display: flex;
   gap: 0.75rem;
   flex-wrap: wrap;
-  margin-bottom: 2rem;
+  margin-bottom: 1.75rem;
 }
 
 .social-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.65rem 1.25rem;
+  padding: 0.65rem 1.2rem;
   border-radius: $radius-full;
   text-decoration: none;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 500;
-  transition: transform $transition;
+  transition: transform 0.25s ease;
 
-  &:hover { transform: translateY(-2px); }
+  &:hover {
+    transform: translateY(-2px);
+  }
 
   &.whatsapp { background: #25D366; color: white; }
-  &.instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; }
+  &.instagram {
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    color: white;
+  }
   &.facebook { background: #1877F2; color: white; }
 }
 
 .map-container {
   border-radius: $radius-md;
   overflow: hidden;
-  box-shadow: $shadow-soft;
+  border: 1px solid rgba($champagne, 0.18);
 }
 
 .form-card {
-  @include glass-card;
-  padding: 2.5rem;
-  background: $white;
-  box-shadow: $shadow-medium;
-  border: 1px solid rgba($accent, 0.1);
+  padding: 2rem 1.85rem;
+  background:
+    linear-gradient(165deg, rgba($ivory, 0.98), rgba($sage-muted, 0.35)),
+    $white;
+  border: 1px solid rgba($champagne, 0.28);
+  border-radius: $radius-lg;
+  box-shadow: 0 18px 48px rgba(44, 42, 38, 0.06);
+}
 
-  h2 {
-    font-family: $font-display;
-    margin: 0 0 0.5rem;
+.form-eyebrow {
+  margin: 0 0 0.4rem;
+  font-family: $font-primary;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: $champagne-deep;
+}
+
+.form-card h2 {
+  font-family: $font-display;
+  font-size: clamp(1.65rem, 3vw, 2rem);
+  font-weight: 500;
+  margin: 0 0 0.55rem;
+  color: $ink;
+}
+
+.form-lede {
+  margin: 0 0 1.75rem;
+  color: $ink-soft;
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+.form-notice {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: -0.35rem 0 1rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 10px;
+  border: 1px solid rgba($champagne, 0.35);
+  background:
+    linear-gradient(135deg, rgba($champagne-light, 0.4), rgba($sage-muted, 0.55)),
+    $ivory;
+  color: $ink;
+  box-shadow: 0 4px 14px rgba(44, 42, 38, 0.05);
+
+  > mat-icon {
+    flex-shrink: 0;
+    color: $champagne-deep;
+    font-size: 1rem;
+    width: 1rem;
+    height: 1rem;
   }
 
-  > p {
-    color: $text-light;
-    margin-bottom: 2rem;
+  p {
+    flex: 1;
+    margin: 0;
+    font-family: $font-primary;
+    font-size: 0.8rem;
+    font-weight: 400;
+    line-height: 1.35;
+    color: $ink-soft;
+  }
+}
+
+.notice-dismiss {
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  color: $mist;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  mat-icon {
+    font-size: 0.95rem;
+    width: 0.95rem;
+    height: 0.95rem;
   }
 
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  &:hover {
+    color: $ink;
+  }
+}
+
+.field.invalid input,
+.field.invalid .service-trigger,
+.field.invalid .time-trigger,
+.field.invalid .date-field input {
+  border-color: rgba($champagne-deep, 0.85);
+  box-shadow: 0 0 0 3px rgba($champagne, 0.18);
+}
+
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.05rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.field-label {
+  font-family: $font-primary;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: $ink-soft;
+}
+
+.field input,
+.field select,
+.field textarea,
+.date-field input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba($champagne, 0.4);
+  border-radius: 12px;
+  background: rgba($white, 0.9);
+  color: $ink;
+  font-family: $font-primary;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+
+  &::placeholder {
+    color: rgba($mist, 0.85);
   }
 
-  mat-form-field { width: 100%; }
-
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-
-    @media (max-width: 576px) { grid-template-columns: 1fr; }
+  &:hover {
+    border-color: rgba($champagne, 0.65);
   }
 
-  .submit-btn {
-    margin-top: 1rem;
-    padding: 0.75rem 2rem;
-    border-radius: $radius-full !important;
-    background: linear-gradient(135deg, $secondary, $accent) !important;
-    color: $text !important;
+  &:focus {
+    border-color: $champagne;
+    box-shadow: 0 0 0 3px rgba($champagne, 0.16);
+  }
+}
+
+.date-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  input {
+    padding-right: 3rem;
+    cursor: pointer;
+  }
+
+  mat-datepicker-toggle {
+    position: absolute;
+    right: 0.35rem;
+    color: $champagne-deep;
+  }
+
+  ::ng-deep .mat-mdc-icon-button {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    color: $champagne-deep !important;
+  }
+}
+
+.time-field {
+  position: relative;
+}
+
+.service-field {
+  position: relative;
+}
+
+.service-trigger,
+.time-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  box-sizing: border-box;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba($champagne, 0.4);
+  border-radius: 12px;
+  background: rgba($white, 0.9);
+  color: $ink;
+  font-family: $font-primary;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+
+  .placeholder {
+    color: rgba($mist, 0.85);
+  }
+
+  mat-icon {
+    color: $champagne-deep;
+    font-size: 1.25rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    transition: transform 0.25s ease;
+  }
+
+  &:hover {
+    border-color: rgba($champagne, 0.65);
+  }
+
+  &:focus {
+    border-color: $champagne;
+    box-shadow: 0 0 0 3px rgba($champagne, 0.16);
+  }
+}
+
+.service-field.open .service-trigger,
+.time-field.open .time-trigger {
+  border-color: $champagne;
+  box-shadow: 0 0 0 3px rgba($champagne, 0.16);
+}
+
+.service-field.open .service-trigger mat-icon {
+  transform: rotate(180deg);
+}
+
+.service-panel {
+  position: absolute;
+  top: calc(100% + 0.45rem);
+  left: 0;
+  right: 0;
+  z-index: 22;
+  max-height: 240px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: none;
+  padding: 0.4rem;
+  border-radius: 14px;
+  border: 1px solid rgba($champagne, 0.35);
+  background:
+    linear-gradient(180deg, rgba($ivory, 0.98), rgba($sage-muted, 0.55)),
+    $white;
+  box-shadow: 0 18px 40px rgba(44, 42, 38, 0.12);
+  scrollbar-width: thin;
+  scrollbar-color: rgba($champagne, 0.45) transparent;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba($champagne, 0.45);
+    border-radius: 4px;
+  }
+}
+
+.service-opt {
+  display: block;
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: $ink-soft;
+  font-family: $font-primary;
+  font-size: 0.92rem;
+  text-align: left;
+  padding: 0.7rem 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    background: rgba($sage, 0.45);
+    color: $ink;
+  }
+
+  &.active {
+    background: $champagne;
+    color: $ivory;
     font-weight: 500;
   }
 }
 
-.success-message {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1rem;
-  background: $primary;
-  border-radius: $radius-sm;
-  margin-bottom: 1.5rem;
+.time-panel {
+  position: absolute;
+  top: calc(100% + 0.45rem);
+  left: 0;
+  z-index: 20;
+  width: min(100%, 240px);
+  padding: 0.65rem;
+  border-radius: 14px;
+  border: 1px solid rgba($champagne, 0.35);
+  background:
+    linear-gradient(180deg, rgba($ivory, 0.98), rgba($sage-muted, 0.55)),
+    $white;
+  box-shadow: 0 18px 40px rgba(44, 42, 38, 0.12);
+  overflow: hidden;
+  overscroll-behavior: none;
+}
 
-  mat-icon { color: #4caf50; }
-  p { margin: 0; font-size: 0.9rem; }
+.time-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr 0.85fr;
+  gap: 0.35rem;
+  height: 196px;
+  min-height: 0;
+}
+
+.time-col {
+  height: 100%;
+  min-height: 0;
+  max-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  border-radius: 10px;
+  background: rgba($white, 0.7);
+  border: 1px solid rgba($champagne, 0.18);
+  scrollbar-width: thin;
+  scrollbar-color: rgba($champagne, 0.45) transparent;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba($champagne, 0.45);
+    border-radius: 4px;
+  }
+
+  &.meridian {
+    overflow-y: hidden;
+  }
+}
+
+.time-opt {
+  display: block;
+  width: 100%;
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  color: $ink-soft;
+  font-family: $font-primary;
+  font-size: 0.88rem;
+  padding: 0.55rem 0.35rem;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    background: rgba($sage, 0.45);
+    color: $ink;
+  }
+
+  &.active {
+    background: $champagne;
+    color: $ivory;
+    font-weight: 500;
+  }
+}
+
+.time-panel-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.55rem;
+  padding-top: 0.45rem;
+  border-top: 1px solid rgba($champagne, 0.2);
+}
+
+.time-clear,
+.time-done {
+  border: none;
+  background: transparent;
+  font-family: $font-primary;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 0.35rem 0.5rem;
+}
+
+.time-clear {
+  color: $mist;
+
+  &:hover {
+    color: $ink;
+  }
+}
+
+.time-done {
+  color: $champagne-deep;
+
+  &:hover {
+    color: $ink;
+  }
+}
+
+.field select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23A68B5B' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.4rem;
+  cursor: pointer;
+
+  option {
+    background: $ivory;
+    color: $ink;
+  }
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 96px;
+}
+
+.submit-btn {
+  margin-top: 0.35rem;
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: $radius-full;
+  background: $champagne;
+  color: $ivory;
+  font-family: $font-primary;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.3s ease, transform 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background: $champagne-deep;
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: wait;
+  }
 }
 
 :host-context(.dark-mode) {
   .info-card,
   .form-card {
-    @include dark-glass-card;
-
-    h2, h4 { color: $dark-text; }
-    p { color: $dark-text-muted; }
+    background: $dark-surface;
+    border-color: $dark-border-subtle;
   }
 
-  .map-container {
-    box-shadow: $dark-shadow;
-    border: 1px solid $dark-border-subtle;
+  .form-card h2,
+  .info-card h4 {
+    color: $dark-text;
   }
 
-  .success-message {
-    background: $dark-mint-tint;
-    border: 1px solid rgba(226, 249, 209, 0.15);
-
-    p { color: $dark-text; }
+  .form-lede,
+  .contact-note,
+  .info-card p,
+  .field-label,
+  .form-notice p {
+    color: $dark-text-muted;
   }
 
-  .submit-btn {
-    color: $dark-text !important;
+  .form-notice {
+    background: rgba($champagne, 0.12);
+    border-color: rgba($champagne, 0.35);
+  }
+
+  .field input,
+  .field select,
+  .field textarea,
+  .date-field input,
+  .service-trigger,
+  .time-trigger {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba($champagne, 0.28);
+    color: $dark-text;
+  }
+
+  .service-trigger .placeholder,
+  .time-trigger .placeholder {
+    color: $dark-text-muted;
+  }
+
+  .service-panel,
+  .time-panel {
+    background: $dark-surface;
+    border-color: rgba($champagne, 0.3);
+  }
+
+  .time-col {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba($champagne, 0.2);
+  }
+
+  .service-opt,
+  .time-opt {
+    color: $dark-text-muted;
+
+    &:hover {
+      background: rgba($champagne, 0.18);
+      color: $dark-text;
+    }
+
+    &.active {
+      background: $champagne;
+      color: $ivory;
+    }
   }
 }

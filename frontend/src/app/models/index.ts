@@ -1,9 +1,3 @@
-export interface ApiResponse<T> {
-  success: boolean;
-  data: T;
-  message?: string;
-}
-
 export interface Service {
   id: string;
   name: string;
@@ -38,38 +32,16 @@ export interface Testimonial {
   is_active: boolean;
 }
 
-export interface Appointment {
+export interface BlogPost {
   id: string;
-  name: string;
-  phone: string;
-  email: string;
-  service_id?: string;
-  service_name?: string;
-  preferred_date: string;
-  preferred_time: string;
-  message?: string;
-  status: 'pending' | 'confirmed' | 'completed' | 'cancelled';
-  created_at?: string;
-}
-
-export interface User {
-  id: string;
-  email: string;
-  name: string;
-  role: string;
-}
-
-export interface LoginResponse {
-  token: string;
-  user: User;
-}
-
-export interface DashboardStats {
-  services: number;
-  gallery: number;
-  testimonials: number;
-  appointments: number;
-  appointmentsByStatus: { status: string; count: number }[];
+  slug: string;
+  title: string;
+  excerpt: string;
+  body: string[];
+  cover_image: string;
+  category: string;
+  published_at: string;
+  read_minutes: number;
 }
 
 export type GalleryCategory = 'all' | 'bridal' | 'minimal' | 'luxury' | 'french' | 'chrome' | 'glitter' | 'festive';

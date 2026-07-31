@@ -5,11 +5,14 @@ import { Component } from '@angular/core';
   standalone: true,
   template: `
     <div class="deco-bg" aria-hidden="true">
-      <div class="wash wash-top"></div>
-      <div class="wash wash-bottom"></div>
-      <div class="sparkle sparkle-1">✦</div>
-      <div class="sparkle sparkle-2">✦</div>
-      <div class="sparkle sparkle-3">✦</div>
+      <div class="wash wash-a"></div>
+      <div class="wash wash-b"></div>
+      <div class="wash wash-c"></div>
+      <div class="ray ray-1"></div>
+      <div class="ray ray-2"></div>
+      @for (p of particles; track p) {
+        <span class="dust" [style.--i]="p"></span>
+      }
     </div>
   `,
   styles: [`
@@ -24,45 +27,87 @@ import { Component } from '@angular/core';
     .wash {
       position: absolute;
       border-radius: 50%;
-      filter: blur(100px);
+      filter: blur(110px);
+      animation: drift 22s cubic-bezier(0.22, 1, 0.36, 1) infinite alternate;
     }
 
-    .wash-top {
-      width: 560px;
-      height: 560px;
-      top: -220px;
-      right: -120px;
-      background: rgba(250, 212, 222, 0.22);
+    .wash-a {
+      width: 580px;
+      height: 580px;
+      top: -240px;
+      right: -140px;
+      background: rgba(220, 232, 215, 0.55);
     }
 
-    .wash-bottom {
-      width: 480px;
-      height: 480px;
+    .wash-b {
+      width: 460px;
+      height: 460px;
       bottom: -180px;
-      left: -100px;
-      background: rgba(240, 138, 155, 0.1);
+      left: -120px;
+      background: rgba(196, 165, 116, 0.28);
+      animation-delay: -6s;
     }
 
-    .sparkle {
+    .wash-c {
+      width: 320px;
+      height: 320px;
+      top: 42%;
+      left: 48%;
+      background: rgba(220, 232, 215, 0.28);
+      animation-delay: -12s;
+    }
+
+    .ray {
       position: absolute;
-      color: #F08A9B;
-      opacity: 0.18;
-      font-size: 1rem;
-      animation: twinkle 5s ease-in-out infinite;
+      width: 1px;
+      height: 42vh;
+      background: linear-gradient(180deg, transparent, rgba(196, 165, 116, 0.22), transparent);
+      filter: blur(0.5px);
+      opacity: 0.45;
+      animation: softPulse 8s ease-in-out infinite;
     }
 
-    .sparkle-1 { top: 22%; left: 6%; }
-    .sparkle-2 { top: 58%; right: 8%; animation-delay: 1.8s; }
-    .sparkle-3 { bottom: 18%; left: 38%; animation-delay: 3.2s; font-size: 0.75rem; }
+    .ray-1 { top: 8%; left: 18%; transform: rotate(18deg); }
+    .ray-2 { top: 20%; right: 22%; transform: rotate(-14deg); animation-delay: 2.5s; }
 
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.1; transform: scale(1); }
-      50% { opacity: 0.35; transform: scale(1.15); }
+    .dust {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: rgba(196, 165, 116, 0.55);
+      left: calc(8% + (var(--i) * 7%));
+      bottom: calc(4% + (var(--i) * 3%));
+      animation: goldDust 14s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+      animation-delay: calc(var(--i) * -1.1s);
     }
 
-    :host-context(.dark-mode) .wash-top { background: rgba(240, 138, 155, 0.08); }
-    :host-context(.dark-mode) .wash-bottom { background: rgba(240, 138, 155, 0.05); }
-    :host-context(.dark-mode) .sparkle { opacity: 0.22; color: #f5a8b5; }
+    @keyframes drift {
+      from { transform: translate(0, 0) scale(1); }
+      to { transform: translate(-24px, 18px) scale(1.06); }
+    }
+
+    @keyframes softPulse {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 0.55; }
+    }
+
+    @keyframes goldDust {
+      0% { transform: translateY(0) translateX(0); opacity: 0; }
+      20% { opacity: 0.5; }
+      100% { transform: translateY(-140px) translateX(20px); opacity: 0; }
+    }
+
+    :host-context(.dark-mode) .wash-a { background: rgba(220, 232, 215, 0.08); }
+    :host-context(.dark-mode) .wash-b { background: rgba(196, 165, 116, 0.1); }
+    :host-context(.dark-mode) .wash-c { background: rgba(220, 232, 215, 0.05); }
+    :host-context(.dark-mode) .dust { background: rgba(232, 213, 181, 0.45); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .wash, .ray, .dust { animation: none; }
+    }
   `],
 })
-export class DecorativeBgComponent {}
+export class DecorativeBgComponent {
+  particles = Array.from({ length: 12 }, (_, i) => i + 1);
+}
